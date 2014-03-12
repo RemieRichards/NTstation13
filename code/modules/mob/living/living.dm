@@ -566,3 +566,21 @@
 
 /mob/living/proc/get_visible_name()
 	return name
+
+
+/mob/living/proc/handle_hide()
+	if(stat != CONSCIOUS)
+		return
+
+	if(layer != TURF_LAYER+0.2)
+		layer = TURF_LAYER+0.2
+		src << text("\green You are now hiding.")
+		for(var/mob/O in oviewers(src, null))
+			if ((O.client && !( O.blinded )))
+				O << text("<B>[] scurries to the ground!</B>", src)
+	else
+		layer = MOB_LAYER
+		src << text("\green You have stopped hiding.")
+		for(var/mob/O in oviewers(src, null))
+			if ((O.client && !( O.blinded )))
+				O << text("[] slowly peaks up from the ground...", src)
