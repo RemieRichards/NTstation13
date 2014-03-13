@@ -51,6 +51,12 @@
 		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
 	. = ..()
 
+/mob/living/carbon/Del()
+	if(contents)
+		for(var/mob/M in contents)
+			M.loc = src.loc
+	..()
+
 /mob/living/carbon/MiddleClickOn(var/atom/A)
 	if(!src.stat && src.mind && src.mind.changeling && src.mind.changeling.chosen_sting && (istype(A, /mob/living/carbon)) && (A != src))
 		next_click = world.time + 5

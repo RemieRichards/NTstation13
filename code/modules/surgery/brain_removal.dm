@@ -20,14 +20,17 @@
 
 /datum/surgery_step/extract_brain/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(B)
-		user.visible_message("<span class='notice'>[user] successfully removes [target]'s brain!</span>")
-		B.loc = get_turf(target)
-		B.transfer_identity(target)
-		target.internal_organs -= B
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
 			H.update_hair(0)
 			H.apply_damage(25,"brute","head")
+		var/mob/living/simple_animal/borer/Borer = target.has_brain_worms()
+		if(Borer)
+			Borer.detatch()
+		user.visible_message("<span class='notice'>[user] successfully removes [target]'s brain!</span>")
+		B.loc = get_turf(target)
+		B.transfer_identity(target)
+		target.internal_organs -= B
 		add_logs(user, target, "debrained", addition="INTENT: [uppertext(user.a_intent)]")
 	else
 		user.visible_message("<span class='notice'>[user] can't find a brain in [target]!</span>")

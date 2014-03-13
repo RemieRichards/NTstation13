@@ -9,7 +9,7 @@
 
 	if (src.client)
 		if(client.prefs.muted & MUTE_IC)
-			src << "\red You cannot speak in IC (muted)."
+			src << "<span class='warning'>You cannot speak in IC (muted).</span>"
 			return
 		if (src.client.handle_spam_prevention(message,MUTE_IC))
 			return
@@ -198,7 +198,7 @@
 		src << "You cannot use that ability again so soon."
 		return
 
-	var/mob/living/carbon/M = input(src,"Who do you wish to dominate?") in null|choices
+	var/mob/living/carbon/M = input(src,"Who do you wish to scare?") in null|choices
 
 	if(!M || !src) return
 
@@ -411,7 +411,7 @@ mob/living/simple_animal/borer/proc/detatch()
 //Procs for grabbing players.
 mob/living/simple_animal/borer/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
-		if(jobban_isbanned(O, "Syndicate"))
+		if(jobban_isbanned(O, "Alien"))
 			continue
 		if(O.client)
 			if(O.client.prefs.be_special & BE_ALIEN)
