@@ -178,6 +178,14 @@
 	var/datum/changeling/changeling = changeling_power(5,0,3)
 	if(!changeling)	return
 
+	if(src.has_brain_worms())
+		var/mob/living/simple_animal/borer/B = has_brain_worms()
+		if(B.controlling)
+			src << "<span class='warning'>We cannot perform this creature's ability!</span>"
+		else
+			src << "<span class='userdanger'>Our mind contains an alien parasite, it is preventing us from transforming!</span"
+		return
+
 	changeling.chem_charges -= 5
 	remove_changeling_powers()
 	changeling.geneticdamage = 3

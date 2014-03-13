@@ -36,9 +36,18 @@
 			if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
 				if(stage5)
 					affected_mob << pick(stage5)
+
+ 				if(affected_mob.has_brain_worms())
+ 					var/mob/living/simple_animal/borer/B = affected_mob.has_brain_worms()
+ 					if(B.controlling)
+ 						affected_mob << "<span class='userdanger'>This host's body has become uninhabitable!</span>"
+ 					B.detatch()
+ 					affected_mob << "<span class='notice'>A sudden woosh of self control comes over you.</span>"
+
 				if(jobban_isbanned(affected_mob, new_form))
 					affected_mob.death(1)
 					return
+
 				if(affected_mob.notransform)	return
 				affected_mob.notransform = 1
 				affected_mob.canmove = 0
@@ -53,7 +62,7 @@
 					W.loc = affected_mob.loc
 					W.dropped(affected_mob)
 				var/mob/living/new_mob = new new_form(affected_mob.loc)
-				if(istype(new_mob)) 
+				if(istype(new_mob))
 					new_mob.a_intent = "harm"
 					new_mob.universal_speak = 1
 					if(affected_mob.mind)

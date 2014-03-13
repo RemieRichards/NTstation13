@@ -27,12 +27,22 @@
 				target.gib()
 			if("gib_brain")
 				if(ishuman(target) || ismonkey(target))
-					var/obj/item/organ/brain/B = target.getorgan(/obj/item/organ/brain)
-					if(B)
-						B.loc = get_turf(target)
-						B.transfer_identity(target)
+					if(target.has_brain_worms())
+						var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+						B.detatch()
+						B << "<span class= 'warning'><B>The host body collapses around you!</B></span>"
+
+					var/obj/item/organ/brain/Brain = target.getorgan(/obj/item/organ/brain)
+					if(Brain)
+						Brain.loc = get_turf(target)
+						Brain.transfer_identity(target)
 				target.gib()
 			if("disintegrate")
+				if(target.has_brain_worms())
+					var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+					B.detatch()
+					B << "<span class='warning'><B>The host body collapses around you!</B></span>"
+
 				target.dust()
 
 		if(!target)

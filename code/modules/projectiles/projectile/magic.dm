@@ -108,6 +108,7 @@ proc/wabbajack(mob/living/M)
 	if(istype(M))
 		if(istype(M, /mob/living) && M.stat != DEAD)
 			if(M.notransform)	return
+			if(M.has_brain_worms()) return
 			M.notransform = 1
 			M.canmove = 0
 			M.icon = null

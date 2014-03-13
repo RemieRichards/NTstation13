@@ -17,6 +17,19 @@
 			return ..()
 		if(istype(M, /mob/living/carbon/human/dummy))
 			return..()
+
+		if(M.has_brain_worms())
+			var/mob/living/simple_animal/borer/B = M.has_brain_worms()
+			var/mob/msg_reciever
+			if(B.controlling)
+				msg_reciever = M
+			else
+				msg_reciever.= B
+			if(msg_reciever)
+				msg_reciever << "<span class='userdanger'>An unatural force has pushed us out of the host!</span>"
+
+			B.detatch()
+
 		add_logs(user, M, "captured [M.name]'s soul", object=src)
 
 		transfer_soul("VICTIM", M, user)
