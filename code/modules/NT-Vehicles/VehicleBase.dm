@@ -16,6 +16,7 @@ TODO:
 - More sounds - Done
 - Split files into more files - Done
 - DATUM CONSTRUCTIONS - SEE construction_datum.dm
+- Standardise Variable names - Done
 */
 
 /*
@@ -37,20 +38,19 @@ Contents:
 	icon = 'icons/obj/NTvehicles/vehicle_pieces_32.dmi'
 	name = "Vehicle"
 	density = 1
-	flags = FPRINT
 	anchored = 1
 	opacity = 1
 	unacidable = 1
 	layer = MOB_LAYER
-	var/PowerLossPerStep = 18
-	var/VehicleHealth = 200
-	var/VehicleMaxHealth = 200
+	var/power_loss_per_step = 18
+	var/vehicle_health = 200
+	var/vehicle_max_health = 200
 	var/vehicle_scale = 1
 	var/effects_icon = 'icons/obj/NTvehicles/vehicle_effects_32.dmi'
 	var/can_move = 1 //Can the vehicle move?
-	var/TimePerStep = 0 //Think of this as Reverse velocity, the lower this is, the faster you go
-	var/Movement_Style = "Normal" //Normal/Strafe/TurnThenMove - How the vehicle moves
-	var/SlowedIndoors = 0
+	var/time_per_step = 0 //Think of this as Reverse velocity, the lower this is, the faster you go
+	var/movement_style = "Normal" //Normal/Strafe/TurnThenMove - How the vehicle moves
+	var/slowed_indoors = 0
 	var/max_crew_members = 1
 	var/mob/living/carbon/Pilot
 	var/list/crew_members = list()
@@ -61,21 +61,21 @@ Contents:
 	var/obj/item/vehicle_part/power_generator/pwr
 	var/obj/item/vehicle_part/movement/movement
 	var/obj/item/vehicle_part/armour/armour
-	var/obj/item/vehicle_part/equipment/ACTIVE //Active equipment
+	var/obj/item/vehicle_part/equipment/active_equip //Active equipment
 	var/datum/gas_mixture/cockpit_air
 	var/list/required_components = list(/obj/item/vehicle_part/core, /obj/item/vehicle_part/movement, /obj/item/vehicle_part/power_generator, /obj/item/vehicle_part/armour)
 	var/list/equipment = list() //Attached weapons/tools
-	var/MaxWepTools = 3 //Max weapons/tools
+	var/max_equipment = 3 //Max weapons/tools
 	var/list/cargo = list()//Cargo bay
-	var/MaxCargoHoldWeight = 5
+	var/max_cargo_weight = 5
 	var/on_fire = 0
-	var/EMP = 0
+	var/emp = 0
 
 
 /obj/vehicle/process()
 	if(pwr && power_cell)
-		power_cell.give(pwr.PowerGain)
-		sleep(pwr.PowerGainWait)
+		power_cell.give(pwr.power_gain)
+		sleep(pwr.power_gain_wait)
 
 	handle_overall_health()
 
@@ -105,8 +105,8 @@ Contents:
 		usr << "<span class='notice'>[movement.name] is [movement.secured ? "secured":"not secured"].</span>"
 	if(armour)
 		usr << "<span class='notice'>[armour.name] is [armour.secured ? "secured":"not secured"].</span>"
-	if(ACTIVE)
-		usr << "<span class='notice'>Active equipment is [ACTIVE.name].</span>"
+	if(active_equip)
+		usr << "<span class='notice'>Active equipment is [active_equip.name].</span>"
 	if(in_construction)
 		usr << "<span class='notice'>Vehicle is under construction/maintenance.</span>"
 	if(power_cell)
@@ -152,8 +152,8 @@ Contents:
 	return
 
 /obj/vehicle/proc/reset_active_equip()
-	if(ACTIVE)
-		ACTIVE = null
+	if(active_equip)
+		active_equip = null
 
 
 /obj/vehicle/New()
@@ -204,12 +204,12 @@ Contents:
 	icon_state = "debug_part" //DEBUG
 	w_class = 5
 	var/Broken = 0
-	var/obj/vehicle/OWNER
+	var/obj/vehicle/owner_vehicle
 	var/secured = 0
-	var/PartHealth = 100
-	var/PartMaxHealth = 100
+	var/part_health = 100
+	var/part_max_health = 100
 	var/damage_coefficient = 1 //How much the damage taken is multiplied by
-	var/PowerLossPerAction = 0 //For parts that need power
+	var/power_loss_per_action = 0 //For parts that need power
 	var/has_damaged_vehicle = 0//Whether to deal damage if it's broken, only relevant for the 4 core parts
 
 
@@ -219,8 +219,8 @@ Contents:
 /obj/item/vehicle_part/power_generator
 	name = "Power generator"
 	desc = "Generates far more than 1.21 gigawatts"
-	var/PowerGain = 20
-	var/PowerGainWait = 1
+	var/power_gain = 20
+	var/power_gain_wait = 1
 
 /obj/item/vehicle_part/movement
 	name = "Thruster"
@@ -234,7 +234,7 @@ Contents:
 /obj/item/vehicle_part/equipment
 	name = "Equipment"
 	desc = "It's a Weapon, or maybe it's a tool!"
-	PowerLossPerAction = 20
+	power_loss_per_action = 20
 	var/is_ranged = 0
 	var/is_melee = 1
 
@@ -248,7 +248,7 @@ Contents:
 	is_melee = 1
 
 /obj/item/vehicle_part/equipment/drill/action(atom/target)
-	OWNER.power_cell.use(PowerLossPerAction)
+	owner_vehicle.power_cell.use(power_loss_per_action)
 	del(target)
 
 /obj/item/vehicle_part/equipment/monkey_spawn
@@ -257,10 +257,10 @@ Contents:
 	is_melee = 0
 
 /obj/item/vehicle_part/equipment/monkey_spawn/action(atom/target)
-	OWNER.power_cell.use(PowerLossPerAction)
+	owner_vehicle.power_cell.use(power_loss_per_action)
 	if(istype(target,/turf))
 		new /mob/living/carbon/monkey (target)
-		OWNER.Pilot << "SUDDEN MONKEY"
+		owner_vehicle.Pilot << "SUDDEN MONKEY"
 
 //end debug
 
@@ -300,9 +300,9 @@ Contents:
 	anchored = 0
 	regenerate_vehicle_icons()
 
-
+/*
 /obj/vehicle/construction
-	name = "[vehicle]-Frame"
+	name = "UNFINISHED HAH HA HAHAHAHAH-Frame"
 	var/vehicle = "Valid"
 	var/datum/construction/Construct
 
@@ -343,7 +343,8 @@ Contents:
 			del src
 		return
 
-/datum/construction/reversible/vehicle/valid  //NOTE, THE STEPS ARE WRITTEN BACKWARDS FOR SOME GAY REASON - RR
+
+/datum/construction/reversible/vehicle/valid  //NOTE, THE STEPS ARE WRITTEN BACKWARDS FOR SOME REASON - RR
 	result = "/obj/vehicle/valid"
 	steps = list(
 
@@ -360,7 +361,7 @@ Contents:
 
 					list("key"=/obj/item/stack/cable_coil,
 							"backkey"=/obj/item/weapon/screwdriver,
-							"desc"="
+							"desc"="FUCK UNFINISHED."),
 
 					//1
 					list("key"=/obj/item/weapon/weldingtool,
@@ -516,6 +517,7 @@ Contents:
 		return
 
 
+*/
 
 //DATUM CONSTRUCTIONS
 

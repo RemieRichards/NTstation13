@@ -16,9 +16,9 @@
 
 
 /obj/item/vehicle_part/proc/take_damage(var/damage)
-	PartHealth -= damage*damage_coefficient
-	if(PartHealth < PartMaxHealth/2 || PartHealth < PartMaxHealth/4)
-		OWNER.regenerate_vehicle_icons()
+	part_health -= damage*damage_coefficient
+	if(part_health < part_max_health/2 || part_health < part_max_health/4)
+		owner_vehicle.regenerate_vehicle_icons()
 
 
 
@@ -87,9 +87,9 @@
 					movement.take_damage(damage)
 					damaged_part = movement
 			if(5)
-				if(ACTIVE)
-					ACTIVE.take_damage(damage)
-					damaged_part = ACTIVE
+				if(active_equip)
+					active_equip.take_damage(damage)
+					damaged_part = active_equip
 
 
 	if(damaged_part)
@@ -103,17 +103,17 @@
 		return
 
 	if(core)
-		Pilot << "<span class='notice'>Core integrity: [core.PartHealth]/[core.PartMaxHealth].</span>"
+		Pilot << "<span class='notice'>Core integrity: [core.part_health]/[core.part_max_health].</span>"
 	if(armour)
-		Pilot << "<span class='notice'>Armour integrity: [armour.PartHealth]/[armour.PartMaxHealth].</span>"
+		Pilot << "<span class='notice'>Armour integrity: [armour.part_health]/[armour.part_max_health].</span>"
 	if(pwr)
-		Pilot << "<span class='notice'>Power Generator integrity: [pwr.PartHealth]/[pwr.PartMaxHealth].</span>"
+		Pilot << "<span class='notice'>Power Generator integrity: [pwr.part_health]/[pwr.part_max_health].</span>"
 	if(movement)
-		Pilot << "<span class='notice'>Movement Gear integrity: [movement.PartHealth]/[movement.PartMaxHealth].</span>"
-	if(ACTIVE)
-		Pilot << "<span class='notice'>Active Equipment integrity: [ACTIVE.PartHealth]/[ACTIVE.PartMaxHealth].</span>"
+		Pilot << "<span class='notice'>Movement Gear integrity: [movement.part_health]/[movement.part_max_health].</span>"
+	if(active_equip)
+		Pilot << "<span class='notice'>Active Equipment integrity: [active_equip.part_health]/[active_equip.part_max_health].</span>"
 
-	Pilot << "<span class='notice'>Vehicle intergity: [VehicleHealth]/[VehicleMaxHealth].</span>"
+	Pilot << "<span class='notice'>Vehicle intergity: [vehicle_health]/[vehicle_max_health].</span>"
 
 
 /obj/vehicle/bullet_act(var/obj/item/projectile/P)
@@ -139,13 +139,13 @@
 	visible_message("<span class='danger'>[src] is hit by the blob!</span>")
 
 /obj/vehicle/emp_act(time_emp)
-	if(!EMP)
-		EMP = 1
+	if(!emp)
+		emp = 1
 
 	time_emp++
 
 	if(time_emp == 100) //if we've looped enough times
-		EMP = 0 //Reset the EMP
+		emp = 0 //Reset the EMP
 		time_emp = 0 //and the Timer
 
 	if(time_emp) //if theres a time
@@ -174,5 +174,5 @@
 		return final_damage
 
 /obj/vehicle/proc/handle_overall_health() //FINISH THIS
-	if(VehicleHealth > VehicleMaxHealth)
-		VehicleHealth = VehicleMaxHealth
+	if(vehicle_health > vehicle_max_health)
+		vehicle_health = vehicle_max_health

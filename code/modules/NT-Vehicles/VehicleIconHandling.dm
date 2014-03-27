@@ -47,7 +47,6 @@ If you don't know what you're doing, Don't touch it - RR
 		vehicle_overlays[CORE_LAYER] = Core_images
 
 	apply_overlay(CORE_LAYER)
-	update_cockpit()
 
 
 /obj/vehicle/proc/update_movement()
@@ -86,7 +85,7 @@ If you don't know what you're doing, Don't touch it - RR
 	if(on_fire)
 		Effect_images += image("icon"=effects_icon,"icon_state"="[initial(name)]_fire","layer"=-EFFECT_LAYER)
 
-	if(EMP)
+	if(emp)
 		Effect_images += image("icon"=effects_icon,"icon_state"="[initial(name)]_EMP","layer"=-EFFECT_LAYER)
 
 	if(Effect_images.len)

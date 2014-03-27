@@ -16,7 +16,7 @@ Mechs will be ported to /vehicle!
 	return vehicle_move(direction)
 
 /obj/vehicle/proc/vehicle_move(direction)
-	TimePerStep = initial(TimePerStep) //To prevent slowdown stacking.
+	time_per_step = initial(time_per_step) //To prevent slowdown stacking.
 	if(!can_move)
 		return 0
 
@@ -24,7 +24,7 @@ Mechs will be ported to /vehicle!
 		return 0
 
 	var/move_result = 0
-	switch(Movement_Style)
+	switch(movement_style)
 		if("Normal")
 			move_result = VehicleStep(direction)
 		if("TurnThenMove")
@@ -34,8 +34,8 @@ Mechs will be ported to /vehicle!
 
 	if(move_result)
 		can_move = 0
-		power_cell.use(PowerLossPerStep)
-		if(do_after(TimePerStep))
+		power_cell.use(power_loss_per_step)
+		if(do_after(time_per_step))
 			can_move = 1
 		return 1
 
@@ -50,11 +50,11 @@ Mechs will be ported to /vehicle!
 
 /obj/vehicle/proc/VehicleStep(direction)
 	var/result = step(src,direction)
-	if(SlowedIndoors)
+	if(slowed_indoors)
 		if(!istype(get_step(src,direction), /turf/space))
-			TimePerStep += 8
+			time_per_step += 8
 		else
-			TimePerStep = initial(TimePerStep)
+			time_per_step = initial(time_per_step)
 	return result
 
 /obj/vehicle/proc/VehicleStrafe(direction)

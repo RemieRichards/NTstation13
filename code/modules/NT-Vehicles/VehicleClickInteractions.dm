@@ -14,11 +14,11 @@ How mobs interact with the Vehicle via clicks
 		user << "<span class='notice'>No equipment attached!</span>"
 		return
 
-	var/obj/item/vehicle_part/equipment/SELECTED = input("Select Active Equipment:","Active Equipment") as null|anything in equipment
+	var/obj/item/vehicle_part/equipment/selected_equip = input("Select Active Equipment:","Active Equipment") as null|anything in equipment
 
-	if(SELECTED)
-		ACTIVE = SELECTED
-		user << "<span class='notice'>[SELECTED.name] is now the Active Equipment.</span>"
+	if(selected_equip)
+		active_equip = selected_equip
+		user << "<span class='notice'>[selected_equip.name] is now the Active Equipment.</span>"
 		return
 
 
@@ -32,10 +32,10 @@ How mobs interact with the Vehicle via clicks
 		return
 
 	if(!target.Adjacent(src))
-		if(ACTIVE && ACTIVE.is_ranged)
-			ACTIVE.action(target)
-	else if(ACTIVE && ACTIVE.is_melee)
-		ACTIVE.action(target)
+		if(active_equip && active_equip.is_ranged)
+			active_equip.action(target)
+	else if(active_equip && active_equip.is_melee)
+		active_equip.action(target)
 
 	return
 
@@ -51,13 +51,13 @@ How mobs interact with the Vehicle via clicks
 	if(istype(dropping, /obj/item))
 		var/obj/item/I = dropping
 
-		if(MaxCargoHoldWeight)
+		if(max_cargo_weight)
 			var/total_cargo_weight = 0
 			for(var/obj/item/Cargo_I in cargo)
 				total_cargo_weight += Cargo_I.w_class
 
 			total_cargo_weight += I.w_class
-			if(total_cargo_weight > MaxCargoHoldWeight)
+			if(total_cargo_weight > max_cargo_weight)
 				user << "<span class='notice'>You cannot fit [I.name] into [src.name]'s cargo hold.</span>"
 				return
 			else
@@ -74,11 +74,11 @@ How mobs interact with the Vehicle via clicks
 		return
 
 	if(cargo.len)
-		var/obj/item/Selected = input("Remove which item from cargo?","Cargo hold") as null|anything in cargo
-		if(Selected)
-			cargo -= Selected
-			Selected.loc = get_turf(user)
-			user << "<span class='notice'>You remove [Selected.name] from [src.name]'s cargo hold.</span>"
+		var/obj/item/selected_item = input("Remove which item from cargo?","Cargo hold") as null|anything in cargo
+		if(selected_item)
+			cargo -= selected_item
+			selected_item.loc = get_turf(user)
+			user << "<span class='notice'>You remove [selected_item.name] from [src.name]'s cargo hold.</span>"
 	else
 		user << "<span class='notice'>No cargo to remove.</span>"
 	return
@@ -117,7 +117,7 @@ obj/vehicle/Topic(href,href_list)
 				core = C
 				user.drop_item()
 				C.loc = src
-				C.OWNER = src
+				C.owner_vehicle = src
 				user << "<span class='notice'>The [core.name] is in position.</span>"
 				playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
 				update_core()
@@ -133,7 +133,7 @@ obj/vehicle/Topic(href,href_list)
 					user << "<span class='notice'>The [core.name] is removed.</span>"
 					playsound(src.loc, 'sound/effects/bamf.ogg',50,1)
 					core.loc = get_turf(user)
-					core.OWNER = null
+					core.owner_vehicle = null
 					core = null
 					update_core()
 				else
@@ -146,7 +146,7 @@ obj/vehicle/Topic(href,href_list)
 				movement = M
 				user.drop_item()
 				M.loc = src
-				M.OWNER = src
+				M.owner_vehicle = src
 				user << "<span class='notice'>The [movement.name] is in position.</span>"
 				playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
 				update_movement()
@@ -162,7 +162,7 @@ obj/vehicle/Topic(href,href_list)
 					user << "<span class='notice'>The [movement.name] is removed.</span>"
 					playsound(src.loc, 'sound/effects/bamf.ogg',50,1)
 					movement.loc = get_turf(user)
-					movement.OWNER = null
+					movement.owner_vehicle = null
 					movement = null
 					update_movement()
 				else
@@ -175,7 +175,7 @@ obj/vehicle/Topic(href,href_list)
 				armour = A
 				user.drop_item()
 				A.loc = src
-				A.OWNER = src
+				A.owner_vehicle = src
 				user << "<span class='notice'>The [armour.name] is in position.</span>"
 				playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
 				update_armour()
@@ -191,7 +191,7 @@ obj/vehicle/Topic(href,href_list)
 					user << "<span class='notice'>The [armour.name] is removed.</span>"
 					playsound(src.loc, 'sound/effects/bamf.ogg',50,1)
 					armour.loc = get_turf(user)
-					armour.OWNER = null
+					armour.owner_vehicle = null
 					armour = null
 					update_armour()
 				else
@@ -204,7 +204,7 @@ obj/vehicle/Topic(href,href_list)
 				pwr = P
 				user.drop_item()
 				P.loc = src
-				P.OWNER = src
+				P.owner_vehicle = src
 				user << "<span class='notice'>The [pwr.name] is in position.</span>"
 				playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
 
@@ -219,7 +219,7 @@ obj/vehicle/Topic(href,href_list)
 					user << "<span class='notice'>The [pwr.name] is removed.</span>"
 					playsound(src.loc, 'sound/effects/bamf.ogg',50,1)
 					pwr.loc = get_turf(user)
-					pwr.OWNER = null
+					pwr.owner_vehicle = null
 					pwr = null
 				else
 					user << "<span class='notice'>The [pwr.name] cannot be removed, as it is secured.</span>"
@@ -230,7 +230,7 @@ obj/vehicle/Topic(href,href_list)
 			var/obj/item/vehicle_part/equipment/removed = input("Remove which Equipment?","Equipment") as null|anything in equipment
 			if(removed)
 				equipment -= removed
-				removed.OWNER = null
+				removed.owner_vehicle = null
 				removed.loc = get_turf(user)
 				user << "<span class='notice'>You remove the [removed.name].</span>"
 				playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
@@ -240,7 +240,7 @@ obj/vehicle/Topic(href,href_list)
 			equipment += E
 			user.drop_item()
 			E.loc = src
-			E.OWNER = src
+			E.owner_vehicle = src
 			user << "<span class='notice'>You attatch the [E.name].</span>"
 			playsound(src.loc, 'sound/effects/bamf.ogg', 50, 1)
 
