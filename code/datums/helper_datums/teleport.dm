@@ -175,6 +175,10 @@
 				var/obj/mecha/MM = teleatom
 				MM.occupant << "\red <B>The mech would not survive the jump to a location so far away!</B>"
 				return 0
+			if(istype(teleatom, /obj/vehicle)) //NTvehicles
+				var/obj/vehicle/V = teleatom
+				V.Pilot << "<span class='warning'>The vehicle would not survive the jump to a location so far away</span>"
+				return 0
 			if(!isemptylist(teleatom.search_contents_for(/obj/item/weapon/storage/backpack/holding)))
 				teleatom.visible_message("\red <B>The Bag of Holding bounces off of the portal!</B>")
 				return 0

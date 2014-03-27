@@ -70,6 +70,12 @@
 		var/obj/mecha/M = loc
 		return M.click_action(A,src)
 
+	if(istype(loc,/obj/vehicle)) //NTvehicles Addition
+		if(!locate(/turf) in list(A,A.loc))
+			return
+		var/obj/vehicle/V = loc
+		return V.click_action(A,src)
+
 	if(restrained())
 		next_move = world.time + 10   //Doing shit in cuffs shall be vey slow
 		RestrainedClickOn(A)

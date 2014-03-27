@@ -87,6 +87,8 @@
 		return 1
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
+	if(istype(usr.loc,/obj/vehicle)) //NTvehicles
+		return 1
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
@@ -174,6 +176,8 @@
 
 		if("equip")
 			if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+				return 1
+			if(istype(usr.loc,/obj/vehicle)) //NTvehicles
 				return 1
 			if(ishuman(usr))
 				var/mob/living/carbon/human/H = usr
@@ -300,6 +304,8 @@
 	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
 		return 1
 	if (istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
+		return 1
+	if(istype(usr.loc,/obj/vehicle)) //NTvehicles
 		return 1
 	switch(name)
 		if("r_hand")
