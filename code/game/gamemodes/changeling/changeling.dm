@@ -235,6 +235,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/datum/dna/chosen_dna
 	var/obj/effect/proc_holder/changeling/sting/chosen_sting
 	var/space_suit_active = 0
+	//Let's HorrorForm's look and be named uniquely
+	var/horror_name
+	var/horror_icon
+	//Used for weak changelings created from the Assimilant Power
+	var/assimilant = 0
 
 /datum/changeling/New(var/gender=FEMALE)
 	..()
@@ -248,7 +253,18 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	else
 		changelingID = "[honorific] [rand(1,999)]"
 	absorbed_dna.len = dna_max
+	UniqueHorror()
 
+/datum/changeling/proc/UniqueHorror()
+	var/list/prefixHorror = list("Shambling","Crawling","Raging","The")
+	var/list/suffixHorror  = list("Abomination","Horror","Thing") //Yes you can end up as "The Thing" - RR
+
+	if(assimilant)
+		horror_icon = "assimilant_1" //Need more sprites  DEBUG-RR-CHANGELING
+		//Name stuff is handled in Horrorize() for Assimilants
+	else
+		horror_name = "[pick(prefixHorror)] [pick(suffixHorror)]"
+		horror_icon = "horror_[rand(1,4)]"
 
 /datum/changeling/proc/regenerate()
 	chem_charges = min(max(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown), chem_storage)
@@ -268,6 +284,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		return
 	if(NOCLONE in target.mutations || HUSK in target.mutations)
 		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
+		return
+	if(ishorror(target))
+		user << "<span class='warning'>This creature is equivelant to us in quality, there is no need.</span>"
 		return
 	if(!ishuman(target))//Absorbing monkeys is entirely possible, but it can cause issues with transforming. That's what lesser form is for anyway!
 		user << "<span class='warning'>We could gain no benefit from absorbing a lesser creature.</span>"

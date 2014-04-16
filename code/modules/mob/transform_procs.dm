@@ -15,6 +15,7 @@
 
 	//Make mob invisible and spawn animation
 	regenerate_icons()
+	overlays = null
 	notransform = 1
 	canmove = 0
 	stunned = 1
@@ -121,8 +122,14 @@
 	animation.icon_state = "blank"
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
-	flick("monkey2h", animation)
-	sleep(22)
+
+	if(istype(src, /mob/living/carbon/monkey))
+		flick("monkey2h", animation)
+		sleep(22)
+	else if (istype(src, /mob/living/carbon/changelinghorror))
+		flick("morph_sack",animation)
+		sleep(20)
+
 	var/mob/living/carbon/human/O = new( loc )
 	for(var/obj/item/C in O.loc)
 		O.equip_to_appropriate_slot(C)
@@ -461,6 +468,53 @@
 
 	. = new_mob
 	qdel(src)
+
+/mob/proc/Horrorize(Assimilant, newname = null)
+
+	if(notransform)
+		return
+
+	for(var/obj/item/W in src)
+		unEquip(W)
+
+	regenerate_icons()
+	overlays = null
+	notransform = 1
+	canmove = 0
+	stunned = 1
+	icon = null
+	invisibility = 101
+	var/atom/movable/overlay/animation = new( loc )
+	animation.icon_state = "blank"
+	animation.icon = 'icons/mob/mob.dmi'
+	animation.master = src
+	flick("morph_sack", animation) //DEBUG-RR-CHANGELING swap morph_sack with a real animation!
+	sleep(20)
+
+	qdel(animation)
+
+	var/mob/living/carbon/changelinghorror/Horror
+
+	if(Assimilant)
+		Horror = new /mob/living/carbon/changelinghorror/assimilant (loc)
+
+	else
+		Horror = new /mob/living/carbon/changelinghorror (loc)
+
+	if(newname)
+		Horror.real_name = newname
+	Horror.name = Horror.real_name
+
+	if(suiciding)
+		Horror.suiciding = suiciding
+
+	Horror.loc = loc
+
+	if(mind)
+		mind.transfer_to(Horror)
+
+	. = Horror
+	return
 
 /* Certain mob types have problems and should not be allowed to be controlled by players.
  *

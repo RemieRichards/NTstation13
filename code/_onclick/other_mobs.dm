@@ -123,3 +123,30 @@
 */
 /mob/new_player/ClickOn()
 	return
+
+
+/*
+	Horror Form Changelings:
+	Unique Attack features need passing to unique proc
+*/
+
+/mob/living/carbon/changelinghorror/UnarmedAttack(var/atom/A)
+	A.attack_horror(src)
+
+/atom/proc/attack_horror(mob/user as mob)
+	user.attack_alien(src) //Where we haven't handled a special case, let alien handle it.
+
+/mob/living/carbon/changelinghorror/RestrainedClickOn(var/atom/A)
+	return
+
+
+/*
+	Changeling Head Spiders:
+	Just a proc override to let them use the takeover proc
+*/
+/mob/living/simple_animal/head_spider/UnarmedAttack(var/atom/A)
+	if(!iscarbon(A))
+		A.attack_animal(src)
+
+	var/mob/living/carbon/C = A
+	attempt_takeover(C)

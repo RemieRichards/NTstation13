@@ -126,6 +126,18 @@ proc/isorgan(A)
 			return 1
 	return 0
 
+/proc/ischangeling(A)
+	if(ismob(A))
+		var/mob/M = A
+		if(M.mind && M.mind.changeling)
+			return 1
+	return 0
+
+/proc/ishorror(A) //Changeling Horror Form
+	if(istype(A, /mob/living/carbon/changelinghorror))
+		return 1
+	return 0
+
 /proc/check_zone(zone)
 	if(!zone)	return "chest"
 	switch(zone)
