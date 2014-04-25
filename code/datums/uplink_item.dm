@@ -113,6 +113,13 @@ var/list/uplink_items = list()
 	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/dangerous/sak
+	name = "CB-47 Space AK"
+	desc = "A traditionally built assault rifle, heavily modified for space combat. Comes equipped with 30-round 7.62x51mm magazines for room-clearing effectiveness."
+	item = /obj/item/weapon/gun/projectile/automatic/c20r
+	cost = 15
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
 	desc = "A traditionally constructed machine gun made by AA-2531. This deadly weapon has a massive 50-round magazine of 7.62×51mm ammunition."
@@ -220,8 +227,15 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/ammo/machinegun
-	name = "Ammo-7.62×51mm"
-	desc = "A 50-round magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "Ammo-7.62×51mm (30)"
+	desc = "A 30-round banana magazine of 7.62×51mm ammunition for use in the CB-47 sAK. The rust gives them that military surplus charm!"
+	item = /obj/item/ammo_box/magazine/m762/banana
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/machinegun
+	name = "Ammo-7.62×51mm (50)"
+	desc = "A 50-round box magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
 	item = /obj/item/ammo_box/magazine/m762
 	cost = 6
 	gamemodes = list(/datum/game_mode/nuclear)

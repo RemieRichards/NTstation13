@@ -148,14 +148,22 @@ obj/item/ammo_box/magazine/tommygunm45
 	max_ammo = 8
 
 /obj/item/ammo_box/magazine/m762
-	name = "magazine (7.62mm)"
+	name = "box magazine (7.62mm)"
 	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = "a762"
 	max_ammo = 50
 
-
 /obj/item/ammo_box/magazine/m762/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(),10)]"
+
+/obj/item/ammo_box/magazine/m762/banana
+	name = "banana magazine (7.62mm)"
+	icon_state = "b762"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/m762/banana/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(),5)]"

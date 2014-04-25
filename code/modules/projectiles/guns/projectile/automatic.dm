@@ -94,6 +94,39 @@
 
 
 
+/obj/item/weapon/gun/projectile/automatic/sak
+	name = "\improper CB-47 sAK"
+	desc = "A heavily modified, traditionally built assault rifle with synthetic furniture. Has 'Zashchita Industriya- 2547' stamped on the reciever"
+	icon_state = "sak"
+	item_state = "sak"
+	w_class = 4.0
+	slot_flags = SLOT_BACK
+	origin_tech = "combat=5;materials=4;syndicate=8"
+	mag_type = /obj/item/ammo_box/magazine/m762/banana
+	fire_sound = 'sound/weapons/Gunshot.ogg'
+
+
+/obj/item/weapon/gun/projectile/automatic/sak/New()
+	..()
+	update_icon()
+	return
+
+
+/obj/item/weapon/gun/projectile/automatic/sak/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	if(!chambered && !get_ammo() && !alarmed)
+		playsound(user, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
+		update_icon()
+		alarmed = 1
+	return
+
+/obj/item/weapon/gun/projectile/automatic/sak/update_icon()
+	..()
+	icon_state = "sak[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""][chambered ? "" : "-e"]"
+	return
+
+
+
 /obj/item/weapon/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
 	desc = "A rather traditionally made light machine gun with a pleasantly lacquered wooden pistol grip. Has 'Aussec Armoury- 2531' engraved on the reciever"
