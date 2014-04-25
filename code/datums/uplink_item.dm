@@ -253,8 +253,8 @@ var/list/uplink_items = list()
 	cost = 3
 
 /datum/uplink_item/stealthy_weapons/silencer
-	name = "Stetchkin Silencer"
-	desc = "Fitted for use on the Stetchkin pistol, this silencer will make its shots quieter when equipped onto it."
+	name = "Syndicate Silencer"
+	desc = "A universal small-arms silencer favored by stealth operatives, this will make shots quieter when equipped onto any low-caliber weapon."
 	item = /obj/item/weapon/silencer
 	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
