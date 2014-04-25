@@ -96,14 +96,13 @@
 
 /obj/item/weapon/gun/projectile/automatic/sak
 	name = "\improper CB-47 sAK"
-	desc = "A heavily modified, traditionally built assault rifle with synthetic furniture. Has 'Zashchita Industriya- 2547' stamped on the reciever"
+	desc = "A heavily modified, but traditionally built assault rifle with synthetic furniture. Has 'Zashchita Industriya- 2547' stamped on the reciever"
 	icon_state = "sak"
 	item_state = "sak"
-	w_class = 4.0
-	slot_flags = SLOT_BACK
+	w_class = 5
 	origin_tech = "combat=5;materials=4;syndicate=8"
 	mag_type = /obj/item/ammo_box/magazine/m762/banana
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
 
 
 /obj/item/weapon/gun/projectile/automatic/sak/New()
@@ -120,9 +119,10 @@
 		alarmed = 1
 	return
 
+
 /obj/item/weapon/gun/projectile/automatic/sak/update_icon()
 	..()
-	icon_state = "sak[magazine ? "-[Ceiling(get_ammo(0)/5)*5]" : ""][chambered ? "" : "-e"]"
+	icon_state = "sak[magazine ? "-[Ceiling(get_ammo(0)/6)*6]" : ""][chambered ? "" : "-e"]"
 	return
 
 
@@ -179,6 +179,33 @@
 		user << "<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>"
 		return
 	..()
+
+
+
+/obj/item/weapon/gun/projectile/automatic/s12
+	name = "\improper S-12p shotgun"
+	desc = "A semi-automatic shotgun built using assault rifle techniques. Compatible only with specialized magazines."
+	icon_state = "s12"
+	item_state = "s12"
+	w_class = 5
+	origin_tech = "combat=5;materials=4;syndicate=8"
+	mag_type = /obj/item/ammo_box/magazine/m12g
+	fire_sound = 'sound/weapons/Gunshot.ogg'
+
+
+/obj/item/weapon/gun/projectile/automatic/s12/New()
+	..()
+	update_icon()
+	return
+
+
+/obj/item/weapon/gun/projectile/automatic/s12/update_icon()
+	..()
+	if(istype(magazine, /obj/item/ammo_box/magazine/m12g)) icon_state = "s12-buck"
+	if(istype(magazine, /obj/item/ammo_box/magazine/m12g/stun)) icon_state = "s12-stun"
+	if(istype(magazine, /obj/item/ammo_box/magazine/m12g/flame)) icon_state = "s12-flame"
+	return
+
 
 /obj/item/weapon/gun/projectile/automatic/tommygun
 	name = "tommy gun"
