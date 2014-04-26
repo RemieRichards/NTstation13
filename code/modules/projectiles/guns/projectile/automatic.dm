@@ -33,6 +33,7 @@
 	icon_state = "c20r"
 	item_state = "c20r"
 	w_class = 3.0
+	silenced = 0
 	origin_tech = "combat=5;materials=2;syndicate=8"
 	mag_type = /obj/item/ammo_box/magazine/m12mm
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
@@ -53,9 +54,75 @@
 	return
 
 
+/obj/item/weapon/gun/projectile/automatic/c20r/attack_hand(mob/user as mob)
+	if(loc == user)
+		if(silenced)
+			if(user.l_hand != src && user.r_hand != src)
+				..()
+				return
+			user << "<span class='notice'>You unscrew [silenced] from [src].</span>"
+			user.put_in_hands(silenced)
+			var/obj/item/weapon/silencer/S = silenced
+			fire_sound = S.oldsound
+			silenced = 0
+			update_icon()
+			return
+	..()
+
+
+/obj/item/weapon/gun/projectile/automatic/c20r/attackby(obj/item/I as obj, mob/user as mob)
+	if(istype(I, /obj/item/weapon/silencer))
+		if(user.l_hand != src && user.r_hand != src)	//if we're not in his hands
+			user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
+			return
+		user.drop_item()
+		user << "<span class='notice'>You screw [I] into [src].</span>"
+		silenced = I	//dodgy?
+		var/obj/item/weapon/silencer/S = I
+		S.oldsound = fire_sound
+		fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+		I.loc = src		//put the silencer into the gun
+		update_icon()
+		return
+	..()
+
+
 /obj/item/weapon/gun/projectile/automatic/c20r/update_icon()
 	..()
-	icon_state = "c20r[magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"]"
+	icon_state = "c20r[silenced ? "-silencer" : ""][magazine ? "-[Ceiling(get_ammo(0)/4)*4]" : ""][chambered ? "" : "-e"]"
+	return
+
+
+
+/obj/item/weapon/gun/projectile/automatic/sak
+	name = "\improper CB-47 sAK"
+	desc = "A heavily modified, but traditionally built assault rifle with synthetic furniture. Has 'Zashchita Industriya- 2547' stamped on the reciever"
+	icon_state = "sak"
+	item_state = "sak"
+	w_class = 5
+	origin_tech = "combat=5;materials=4;syndicate=8"
+	mag_type = /obj/item/ammo_box/magazine/m762/banana
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+
+
+/obj/item/weapon/gun/projectile/automatic/sak/New()
+	..()
+	update_icon()
+	return
+
+
+/obj/item/weapon/gun/projectile/automatic/sak/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+	..()
+	if(!chambered && !get_ammo() && !alarmed)
+		playsound(user, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
+		update_icon()
+		alarmed = 1
+	return
+
+
+/obj/item/weapon/gun/projectile/automatic/sak/update_icon()
+	..()
+	icon_state = "sak[magazine ? "-[Ceiling(get_ammo(0)/6)*6]" : ""][chambered ? "" : "-e"]"
 	return
 
 
@@ -112,6 +179,33 @@
 		user << "<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>"
 		return
 	..()
+
+
+
+/obj/item/weapon/gun/projectile/automatic/s12
+	name = "\improper S-12p shotgun"
+	desc = "A semi-automatic shotgun built using assault rifle techniques. Compatible only with specialized magazines."
+	icon_state = "s12"
+	item_state = "s12"
+	w_class = 5
+	origin_tech = "combat=5;materials=4;syndicate=8"
+	mag_type = /obj/item/ammo_box/magazine/m12g
+	fire_sound = 'sound/weapons/Gunshot.ogg'
+
+
+/obj/item/weapon/gun/projectile/automatic/s12/New()
+	..()
+	update_icon()
+	return
+
+
+/obj/item/weapon/gun/projectile/automatic/s12/update_icon()
+	..()
+	if(istype(magazine, /obj/item/ammo_box/magazine/m12g)) icon_state = "s12-buck"
+	if(istype(magazine, /obj/item/ammo_box/magazine/m12g/stun)) icon_state = "s12-stun"
+	if(istype(magazine, /obj/item/ammo_box/magazine/m12g/flame)) icon_state = "s12-flame"
+	return
+
 
 /obj/item/weapon/gun/projectile/automatic/tommygun
 	name = "tommy gun"

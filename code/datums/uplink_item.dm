@@ -119,6 +119,20 @@ var/list/uplink_items = list()
 	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/dangerous/s12
+	name = "S-12p Automatic Shotgun"
+	desc = "A semi-automatic shotgun built on a traditional rifle design that comes standard with buckshot. Compatible with a variety of specialized 10-round magazines."
+	item = /obj/item/weapon/gun/projectile/automatic/c20r
+	cost = 15
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/dangerous/sak
+	name = "CB-47 Space AK"
+	desc = "A traditionally built assault rifle, heavily modified for space combat. Compatible with 30-round 7.62x51mm magazines for room-clearing effectiveness."
+	item = /obj/item/weapon/gun/projectile/automatic/c20r
+	cost = 15
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/machinegun
 	name = "L6 Squad Automatic Weapon"
 	desc = "A traditionally constructed machine gun made by AA-2531. This deadly weapon has a massive 50-round magazine of 7.62×51mm ammunition."
@@ -224,9 +238,37 @@ var/list/uplink_items = list()
 	item = /obj/item/ammo_box/magazine/m10mm
 	cost = 1
 
+/datum/uplink_item/ammo/s12
+	name = "Ammo-12g Buckshot"
+	desc = "An 8-round magazine of 12-gauge buckshot shells for use in the S-12p shotgun. Shot spreads over distance."
+	item = /obj/item/ammo_box/magazine/m12g
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/s12s
+	name = "Ammo-12g Stun"
+	desc = "An 8-round magazine of 12-gauge stun shells for use in the S-12p shotgun. Payload is delivered in a single slug."
+	item = /obj/item/ammo_box/magazine/m12g/stun
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/s12f
+	name = "Ammo-12g Dragon's Breath"
+	desc = "An 8-round magazine of 12-gauge dragon's breath shells for use in the S-12p shotgun. Payload is delivered in a single slug."
+	item = /obj/item/ammo_box/magazine/m12g/flame
+	cost = 4
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/ammo/sak
+	name = "Ammo-7.62×51mm (30)"
+	desc = "A 30-round banana magazine of 7.62×51mm ammunition for use in the CB-47 sAK. The rust gives it that military surplus charm!"
+	item = /obj/item/ammo_box/magazine/m762/banana
+	cost = 5
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/ammo/machinegun
-	name = "Ammo-7.62×51mm"
-	desc = "A 50-round magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
+	name = "Ammo-7.62×51mm (50)"
+	desc = "A 50-round box magazine of 7.62×51mm ammunition for use in the L6 SAW machinegun. By the time you need to use this, you'll already be on a pile of corpses."
 	item = /obj/item/ammo_box/magazine/m762
 	cost = 6
 	gamemodes = list(/datum/game_mode/nuclear)
@@ -258,8 +300,8 @@ var/list/uplink_items = list()
 	cost = 3
 
 /datum/uplink_item/stealthy_weapons/silencer
-	name = "Stetchkin Silencer"
-	desc = "Fitted for use on the Stetchkin pistol, this silencer will make its shots quieter when equipped onto it."
+	name = "Syndicate Silencer"
+	desc = "A universal small-arms silencer favored by stealth operatives, this will make shots quieter when equipped onto any low-caliber weapon."
 	item = /obj/item/weapon/silencer
 	cost = 2
 

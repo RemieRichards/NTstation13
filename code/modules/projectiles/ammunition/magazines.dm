@@ -148,14 +148,52 @@ obj/item/ammo_box/magazine/tommygunm45
 	max_ammo = 8
 
 /obj/item/ammo_box/magazine/m762
-	name = "magazine (7.62mm)"
+	name = "box magazine (7.62mm)"
 	icon_state = "a762"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/a762
 	caliber = "a762"
 	max_ammo = 50
 
-
 /obj/item/ammo_box/magazine/m762/update_icon()
 	..()
 	icon_state = "[initial(icon_state)]-[round(ammo_count(),10)]"
+
+/obj/item/ammo_box/magazine/m762/banana
+	name = "banana magazine (7.62mm)"
+	icon_state = "b762"
+	max_ammo = 30
+
+/obj/item/ammo_box/magazine/m762/banana/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[round(ammo_count(),5)]"
+
+/obj/item/ammo_box/magazine/m12g
+	name = "magazine (12g buckshot)"
+	icon_state = "12g"
+	origin_tech = "combat=3"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	caliber = "shotgun"
+	max_ammo = 8
+
+/obj/item/ammo_box/magazine/m12g/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
+
+/obj/item/ammo_box/magazine/m12g/stun
+	name = "magazine (12g stun)"
+	icon_state = "12gs"
+	ammo_type = /obj/item/ammo_casing/shotgun/stunshell
+
+/obj/item/ammo_box/magazine/m12g/stun/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"
+
+/obj/item/ammo_box/magazine/m12g/flame
+	name = "magazine (12g dragon's breath)"
+	icon_state = "12gf"
+	ammo_type = /obj/item/ammo_casing/shotgun/incendiary
+
+/obj/item/ammo_box/magazine/m12g/flame/update_icon()
+	..()
+	icon_state = "[initial(icon_state)]-[Ceiling(ammo_count(0)/8)*8]"

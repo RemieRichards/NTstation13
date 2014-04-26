@@ -1664,6 +1664,16 @@ datum/design/smg
 	build_path = /obj/item/weapon/gun/projectile/automatic
 	locked = 1
 
+datum/design/shotgun
+	name = "Automatic Shotgun"
+	desc = "A semi-automatic shotgun built on a traditional rifle frame."
+	id = "s12"
+	req_tech = list("combat" = 6, "materials" = 5, "syndicate" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 9000, "$silver" = 5000, "$diamond" = 1000)
+	build_path = /obj/item/weapon/gun/projectile/automatic/s12
+	locked = 1
+
 datum/design/xray
 	name = "Xray Laser Gun"
 	desc = "Not quite as menacing as it sounds"
@@ -1710,6 +1720,24 @@ datum/design/stunshell
 	build_type = PROTOLATHE
 	materials = list("$metal" = 1000)
 	build_path = /obj/item/ammo_casing/shotgun/stunshell
+
+datum/design/buckmag
+	name = "12g Shotgun Magazine (Buckshot)"
+	desc = "An 8-round buckshot magazine for compatible shotguns."
+	id = "buckmag"
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 3000, "$glass" = 1000)
+	build_path = /obj/item/ammo_box/magazine/m12g
+
+datum/design/stunmag
+	name = "12g Shotgun Magazine (Stun)"
+	desc = "An 8-round stun magazine for compatible shotguns."
+	id = "stunmag"
+	req_tech = list("combat" = 6, "materials" = 5)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 3000, "$glass" = 1000, "$gold" = 1500)
+	build_path = /obj/item/ammo_box/magazine/m12g
 
 /////////////////////////////////////////
 /////////////////Mining//////////////////
