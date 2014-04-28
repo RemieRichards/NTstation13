@@ -175,6 +175,11 @@ BLIND     // can't see anything
 		*/
 	var/obj/item/clothing/tie/hastie = null
 
+
+/obj/item/clothing/under/OnEquip(mob/user)
+	playsound(loc, 'sound/items/zip.ogg', 50, 1, -1)
+
+
 /obj/item/clothing/under/attackby(obj/item/I, mob/user)
 	attachTie(I, user)
 	..()

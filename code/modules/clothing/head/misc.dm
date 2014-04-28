@@ -205,6 +205,12 @@
 	item_state = "fedora"
 	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
 
+/obj/item/clothing/head/fedora/shamedora/OnEquip(mob/living/user)
+	if(!istype(user))
+		return
+	user.adjustBrainLoss(40)
+	world << "[user] is feeling Equphoric!" //DEBUG REMIE
+
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
 	icon_state = "sombrero"

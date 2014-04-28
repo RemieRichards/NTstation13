@@ -228,6 +228,9 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 
+/obj/item/clothing/mask/gas/clown_hat/OnEquip(mob/user)
+	playsound(user.loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
+
 /obj/item/clothing/mask/gas/sexyclown
 	name = "sexy-clown wig and mask"
 	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."

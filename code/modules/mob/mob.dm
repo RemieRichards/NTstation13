@@ -185,6 +185,7 @@ var/next_mob_id = 0
 				src << "\red You are unable to equip that." //Only print if qdel_on_fail is false
 		return 0
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
+	W.OnEquip(src) //Allow the item to run code on the mob it's equipped to - RR
 	return 1
 
 //This is an UNSAFE proc. It merely handles the actual job of equipping. All the checks on whether you can or can't eqip need to be done before! Use mob_can_equip() for that task.

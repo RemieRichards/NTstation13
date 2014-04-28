@@ -560,3 +560,8 @@
 			var/icon/blood_splatter_icon = blood_splatter_icons[index]
 			if(blood_splatter_icon)
 				overlays -= blood_splatter_icon
+
+
+//lets items run code on a mob when equipped - RR
+/obj/item/proc/OnEquip(var/mob/user)
+	return
