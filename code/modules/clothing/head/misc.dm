@@ -209,7 +209,6 @@
 	if(!istype(user))
 		return
 	user.adjustBrainLoss(40)
-	world << "[user] is feeling Equphoric!" //DEBUG REMIE
 
 /obj/item/clothing/head/sombrero
 	name = "sombrero"
