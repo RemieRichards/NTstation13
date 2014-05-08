@@ -2,7 +2,7 @@
 /mob/living/simple_animal/head_spider
 	name = "Unknown-Head Spider"
 	desc = "You can't quite make out who it looks like..."
-
+	icon = 'icons/mob/changelinghorror.dmi'
 	icon_state = "head_spider"
 	icon_living = "head_spider"
 	icon_dead = "head_spider_dead"
@@ -31,7 +31,7 @@
 	max_n2 = 0
 	minbodytemp = 0
 
-	faction = "changeling"
+	factions = list("changeling")
 
 	var/datum/dna/active_dna
 

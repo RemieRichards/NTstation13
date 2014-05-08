@@ -8,7 +8,7 @@
 	turns_per_move = 1
 	maxHealth = 10
 	health = 10
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice
+	meat_type = list(/obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "whacks"
@@ -17,7 +17,7 @@
 	melee_damage_upper = 1
 	attack_same = 2
 	attacktext = "chomps"
-	faction = "mushroom"
+	factions = list("mushroom")
 	environment_smash = 0
 	stat_attack = 2
 	mouse_opacity = 1

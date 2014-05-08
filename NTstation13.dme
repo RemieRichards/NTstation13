@@ -14,6 +14,7 @@
 
 // BEGIN_INCLUDE
 #include "_maps\metastation.dm"
+#include "_maps\RandomZLevels\clownplanet.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -428,6 +429,7 @@
 #include "code\game\machinery\kitchen\juicer.dm"
 #include "code\game\machinery\kitchen\microwave.dm"
 #include "code\game\machinery\kitchen\monkeyrecycler.dm"
+#include "code\game\machinery\kitchen\oven.dm"
 #include "code\game\machinery\kitchen\processor.dm"
 #include "code\game\machinery\kitchen\smartfridge.dm"
 #include "code\game\machinery\pipe\construction.dm"
@@ -501,6 +503,7 @@
 #include "code\game\objects\items\bodybag.dm"
 #include "code\game\objects\items\candle.dm"
 #include "code\game\objects\items\crayons.dm"
+#include "code\game\objects\items\documents.dm"
 #include "code\game\objects\items\latexballoon.dm"
 #include "code\game\objects\items\shooting_range.dm"
 #include "code\game\objects\items\toys.dm"

@@ -10,7 +10,7 @@
 	anchored = 1.0
 	input_dir = WEST
 	output_dir = SOUTH
-	req_one_access = list(access_mining_station, access_chemistry, access_bar, access_research, access_ce, access_virology)
+	req_access = list(access_mineral_storeroom)
 	var/stk_types = list()
 	var/stk_amt   = list()
 	var/stack_list[0] //Key: Type.  Value: Instance of type.
@@ -457,7 +457,7 @@
 	status_flags = CANSTUN|CANWEAKEN|CANPUSH
 	stop_automated_movement_when_pulled = 1
 	mouse_opacity = 1
-	faction = "neutral"
+	factions = list("neutral")
 	a_intent = "harm"
 	min_oxy = 0
 	max_oxy = 0
@@ -600,7 +600,7 @@
 		if(istype(target, /mob/living/simple_animal))
 			var/mob/living/simple_animal/M = target
 			if(M.stat == DEAD)
-				M.faction = "lazarus"
+				M.factions += "lazarus"
 				M.revive()
 				if(istype(target, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M

@@ -10,7 +10,7 @@
 	response_disarm = "shoves"
 	response_harm = "hits"
 	speed = 0
-	meat_type = /obj/item/weapon/reagent_containers/food/snacks/xenomeat
+	meat_type = list(/obj/item/weapon/reagent_containers/food/snacks/xenomeat)
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 5
@@ -28,7 +28,7 @@
 	min_n2 = 0
 	max_n2 = 0
 	unsuitable_atoms_damage = 15
-	faction = "alien"
+	factions = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
 	heat_damage_per_tick = 20

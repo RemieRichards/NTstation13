@@ -5,7 +5,7 @@
 	desc = "What disgusting horror birthed this monstrosity?"
 	maxHealth = 350
 	health = 350
-	faction = "changeling"
+	factions = list("changeling")
 	var/Default_Damage = 30
 	var/oxygen_alert = 0
 	var/toxins_alert = 0

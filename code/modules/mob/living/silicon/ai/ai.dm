@@ -1,6 +1,6 @@
 var/list/ai_list = list()
 
-//Not sure why this is necessary...
+//Not sure why this is necessary..
 /proc/AutoUpdateAI(obj/subject)
 	var/is_in_use = 0
 	if (subject!=null)
@@ -132,7 +132,7 @@ var/list/ai_list = list()
 		return
 
 		//if(icon_state == initial(icon_state))
-	var/icontype = input("Please, select a display!", "AI", null/*, null*/) in list("Clown", "Monochrome", "Blue", "Inverted", "Firewall", "Green", "Red", "Static", "Red October")
+	var/icontype = input("Please, select a display!", "AI", null/*, null*/) in list("Clown", "Monochrome", "Blue", "Inverted", "Firewall", "Green", "Red", "Static", "Red October", "Hades", "Helios", "House", "President", "Gigyas", "Yuki", "SyndicatMeow", "Heartline", "Alter Ego", "Triumvirate", "Triumvirate-M", "Urist", "Text", "Smiley", "Matrix", "Dorf", "Bliss", "Completely Normal Not-Malf AI", "Fuzz", "Goon", "Database", "Glitchman", "AmericAI", "Nanotrasen", "Gentoo")
 	if(icontype == "Clown")
 		icon_state = "ai-clown2"
 	else if(icontype == "Monochrome")
@@ -151,6 +151,56 @@ var/list/ai_list = list()
 		icon_state = "ai-static"
 	else if(icontype == "Red October")
 		icon_state = "ai-redoctober"
+	else if(icontype == "Hades")
+		icon_state = "ai-hades"
+	else if(icontype == "Helios")
+		icon_state = "ai-helios"
+	else if(icontype == "House")
+		icon_state = "ai-house"
+	else if(icontype == "President")
+		icon_state = "ai-pres"
+	else if(icontype == "Gigyas")
+		icon_state = "ai-gigyas"
+	else if(icontype == "Yuki")
+		icon_state = "ai-yuki"
+	else if(icontype == "SyndicatMeow")
+		icon_state = "ai-syndicatmeow"
+	else if(icontype == "Heartline")
+		icon_state = "ai-heartline"
+	else if (icontype == "Alter Ego")
+		icon_state = "ai-alterego"
+	else if (icontype == "Triumvirate")
+		icon_state = "ai-triumvirate"
+	else if (icontype == "Triumvirate-M")
+		icon_state = "ai-triumvirate-malf"
+	else if (icontype == "Urist")
+		icon_state = "ai-toodeep"
+	else if (icontype == "Text")
+		icon_state = "ai-text"
+	else if (icontype == "Smiley")
+		icon_state = "ai-smiley"
+	else if (icontype == "Matrix")
+		icon_state = "ai-matrix"
+	else if (icontype == "Dorf")
+		icon_state = "ai-dorf"
+	else if (icontype == "Bliss")
+		icon_state = "ai-bliss"
+	else if (icontype == "Completely Normal Not-Malf AI")
+		icon_state = "ai-notmalf"
+	else if (icontype == "Fuzz")
+		icon_state = "ai-fuzz"
+	else if (icontype == "Goon")
+		icon_state = "ai-goon"
+	else if (icontype == "Database")
+		icon_state = "ai-database"
+	else if (icontype == "Glitchman")
+		icon_state = "ai-glitchman"
+	else if (icontype == "AmericAI")
+		icon_state = "ai-murica"
+	else if (icontype == "Nanotrasen")
+		icon_state = "ai-nanotrasen"
+	else if (icontype == "Gentoo")
+		icon_state = "ai-gentoo"
 	//else
 			//usr <<"You can only change your display once!"
 			//return

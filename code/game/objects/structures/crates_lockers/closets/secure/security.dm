@@ -15,6 +15,7 @@
 			new /obj/item/weapon/storage/backpack/captain(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_cap(src)
+		new /obj/item/clothing/suit/labcoat/coat/captain(src)
 		new /obj/item/clothing/suit/captunic(src)
 		new /obj/item/clothing/under/captainformal(src)
 		new /obj/item/clothing/head/helmet/cap(src)
@@ -24,11 +25,11 @@
 		new /obj/item/clothing/head/helmet/swat(src)
 		new /obj/item/clothing/shoes/brown(src)
 		new /obj/item/device/radio/headset/heads/captain(src)
+		new /obj/item/weapon/tank/jetpack/oxygen(src)
 		new /obj/item/clothing/gloves/captain(src)
 		new /obj/item/weapon/gun/energy/gun(src)
+		new /obj/item/clothing/glasses/sunglasses/supergar(src)
 		return
-
-
 
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
@@ -72,6 +73,7 @@
 	New()
 		..()
 		sleep(2)
+		new /obj/item/clothing/suit/labcoat/coat/security(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/clothing/suit/armor/hos/jensen(src)
 		new /obj/item/clothing/head/helmet/HoS/dermal(src)
@@ -86,6 +88,7 @@
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/weapon/storage/belt/security(src)
+		new /obj/item/clothing/glasses/hud/security/supergars(src)
 		return
 
 
@@ -103,6 +106,7 @@
 	New()
 		..()
 		sleep(2)
+		new /obj/item/clothing/suit/labcoat/coat/security(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/clothing/under/rank/warden(src)
 		new /obj/item/clothing/suit/armor/vest/warden(src)
@@ -133,6 +137,7 @@
 	New()
 		..()
 		sleep(2)
+		new /obj/item/clothing/suit/labcoat/coat/security(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/clothing/head/helmet(src)
 		new /obj/item/device/radio/headset/headset_sec(src)
@@ -199,6 +204,8 @@
 	New()
 		..()
 		sleep(2)
+		new /obj/item/clothing/suit/labcoat/coat/security(src)
+		new /obj/item/clothing/suit/cabanelasuit(src)
 		new /obj/item/clothing/under/det(src)
 		new /obj/item/clothing/suit/det_suit(src)
 		new /obj/item/clothing/gloves/black(src)
