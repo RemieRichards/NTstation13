@@ -38,7 +38,6 @@
 /datum/hud/proc/changelinghorror_hud(ui_style = 'icons/mob/screen_midnight.dmi') //Not really deserving of it's own File - RR
 	adding = list()
 	other = list()
-	hotkeybuttons = list()
 
 	var/obj/screen/using
 	var/obj/screen/inventory/inv_box
@@ -92,7 +91,7 @@
 	using.icon_state = "act_drop"
 	using.screen_loc = ui_drop_throw
 	using.layer = 19
-	hotkeybuttons += using
+	adding += using
 
 	mymob.throw_icon = new /obj/screen()
 	mymob.throw_icon.icon = ui_style
@@ -104,10 +103,18 @@
 	using.name = "mov_intent"
 	using.icon = ui_style
 	using.icon_state = (mymob.m_intent == "run" ? "running" : "walking")
-	using.screen_loc = ui_movi
+	using.screen_loc = ui_zonesel
 	using.layer = 20
 	adding += using
 	move_intent = using
+
+	using = new /obj/screen()
+	using.name = "act_intent"
+	using.icon_state = mymob.a_intent
+	using.screen_loc = ui_acti
+	using.layer = 20
+	adding += using
+	action_intent = using
 
 	using = new /obj/screen()
 	using.name = "equip"
@@ -156,30 +163,7 @@
 	mymob.fire.name = "fire"
 	mymob.fire.screen_loc = ui_fire
 
-	mymob.pressure = new /obj/screen()
-	mymob.pressure.icon_state = "pressure0"
-	mymob.pressure.name = "pressure"
-	mymob.pressure.screen_loc = ui_pressure
-
-	inv_box = new /obj/screen/inventory()
-	inv_box.name = "mask"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "mask"
-	inv_box.screen_loc = ui_monkey_mask //Yes this is supposed to be monkey
-	inv_box.slot_id = slot_wear_mask
-	inv_box.layer = 19
-	adding += inv_box
-
-	inv_box = new /obj/screen/inventory()
-	inv_box.name = "back"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "back"
-	inv_box.screen_loc = ui_back
-	inv_box.slot_id = slot_back
-	inv_box.layer = 19
-	adding += inv_box
-
 	mymob.client.screen = null
 
-	mymob.client.screen += list(lingchemdisplay, lingstingdisplay, mymob.pullin, mymob.healths, mymob.bodytemp, mymob.fire, mymob.throw_icon, mymob.pressure)
+	mymob.client.screen += list(lingchemdisplay, lingstingdisplay, mymob.pullin, mymob.healths, mymob.bodytemp, mymob.fire, mymob.throw_icon)
 	mymob.client.screen += adding + other

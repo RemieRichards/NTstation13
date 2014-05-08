@@ -26,8 +26,11 @@
 			var/dam_zone = pick("chest","l_hand", "r_hand", "l_lef", "r_leg","head")
 			var/obj/item/organ/limb/affecting = get_organ(ran_zone(dam_zone))
 			var/DAMAGE = CH.Default_Damage*(CH.mind.changeling.absorbed_dna.len/2)
-			apply_damage(DAMAGE, BRUTE, affecting, run_armor_check(affecting, "melee"))
-			visible_message("<span class='danger'>[CH] reaches out, [attacker]'s [attacking_body_part] [attack_verb] [src]'s [parse_zone(affecting.name)]!</span>","<span class='danger'>[CH] reaches out, [attacker]'s [attacking_body_part] [attack_verb] your [parse_zone(affecting.name)]!</span>")
+			if(affecting)
+				apply_damage(DAMAGE, BRUTE, affecting, run_armor_check(affecting, "melee"))
+				visible_message("<span class='danger'>[CH] reaches out, [attacker]'s [attacking_body_part] [attack_verb] [src]'s [parse_zone(affecting.name)]!</span>","<span class='danger'>[CH] reaches out, [attacker]'s [attacking_body_part] [attack_verb] your [parse_zone(affecting.name)]!</span>")
+			else
+				visible_message("<span class='danger'>[CH] reaches out, [attacker]'s [attacking_body_part] misses [src]!</span>","<span class='danger'>[CH] reaches out, [attacker]'s [attacking_body_part] misses you!</span>")
 
 		if ("grab")
 			if (user == src || anchored)
@@ -74,8 +77,8 @@
 		return
 
 	if(arePowerSystemsOn() && !(stat & NOPOWER))
-		user << "<span class='notice'>The airlock's motors resist our efforts to force it, we will try harder...</span>"
-		delay = 60
+		user << "<span class='notice'>The airlock's motors resist our efforts to force it</span>"
+		return
 
 	else if(locked)
 		user << "<span class='notice'>The airlock's bolts prevent it from being forced.</span>"

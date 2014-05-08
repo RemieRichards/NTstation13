@@ -65,11 +65,8 @@ Horror form abilities, By RR
 		C = pick(candidates)
 
 	if(!C)
-	/*
 		user << "<span class='notice'>You cannot split your consciousness at the present time</span>"
 		return
-	*/
-		C = user.client
 
 	var/datum/dna/CHOSEN = user.mind.changeling.select_dna("Choose a DNA to create an Assimilant from","Choose DNA")
 
@@ -102,6 +99,8 @@ Horror form abilities, By RR
 		Assimilant.remove_changeling_powers(0)
 		Assimilant.dna = CHOSEN
 		updateappearance(Assimilant)
+		Assimilant.real_name = "[Assimilant.dna.real_name]"
+		Assimilant.name = Assimilant.real_name
 		AMC.purchasedpowers += new /obj/effect/proc_holder/changeling/sting/extract_dna(null)
 		AMC.purchasedpowers += new /obj/effect/proc_holder/changeling/fakedeath(null)
 		AMC.purchasedpowers += new /obj/effect/proc_holder/changeling/absorbDNA(null)
@@ -114,3 +113,29 @@ Horror form abilities, By RR
 	return
 
 
+///////////////////////////
+///	 Spawn Head Spider	///
+///////////////////////////
+
+/obj/effect/proc_holder/changeling/head_spider
+	name = "Produce Head Spider"
+	desc = "Remove our own head to attempt to claim a new body, free of charge"
+	helptext = "Become a head spider, last resort power"
+	chemical_cost = 0 //Free, because Revive is arguably a better power
+	dna_cost = 0
+	req_stat = DEAD
+
+
+/obj/effect/proc_holder/changeling/head_spider/sting_action(var/mob/living/carbon/user)
+	if(!istype(user))
+		return
+
+	var/mob/living/simple_animal/head_spider/HS = new (loc)
+	HS.active_dna = user.dna
+	HS.name = "[HS.active_dna.real_name]-Head Spider"
+	HS.desc = "it looks like the head of [HS.active_dna.real_name]!"
+	if(user.mind && user.mind.changeling)
+		user.mind.transfer_to(HS)
+
+	.=1
+	qdel(user)

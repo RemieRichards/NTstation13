@@ -33,7 +33,12 @@
 
 	faction = "changeling"
 
+	var/datum/dna/active_dna
+
 /mob/living/simple_animal/head_spider/proc/attempt_takeover(mob/living/carbon/Victim)
+	if(!istype(Victim))
+		return
+
 	if(ischangeling(Victim) || ishorror(Victim))
 		src << "<span class='warning'>We will not Assimilate our own kind!</span>"
 		return
@@ -41,7 +46,7 @@
 	if(ishuman(Victim)) //Only humans have a head slot
 		var/mob/living/carbon/human/HV = Victim
 		if(HV.head)
-			if(HV.head.flags_inv & HIDEFACE) //helmet is in the way - maybe theres a better way than this?
+			if(HV.head.flags_inv & HIDEFACE)
 				src << "<span class='warning'>Their [HV.head.name] prevents you from attatching!</span>"
 				return
 

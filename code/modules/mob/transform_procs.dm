@@ -488,7 +488,7 @@
 	animation.icon_state = "blank"
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
-	flick("morph_sack", animation) //DEBUG-RR-CHANGELING swap morph_sack with a real animation!
+	flick("morph_sack", animation)
 	sleep(20)
 
 	qdel(animation)

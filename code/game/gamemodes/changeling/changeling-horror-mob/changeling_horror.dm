@@ -27,7 +27,8 @@
 	if(client && mind)
 		if(client.statpanel == "Status")
 			if(mind.changeling)
-				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
+				stat("Chemical Storage:", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
+				stat("Absorbed DNA", mind.changeling.absorbedcount)
 	return
 
 
@@ -57,9 +58,15 @@
 		return
 
 	var/message_a = say_quote(message)
-	var/rendered = "<i><span class='game say'>Changeling Horror Speech, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
+	var/rendered = "<i><span class='game say'><span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
 
-	for (var/mob/M in mob_list)
-		if(ishorror(M) || M.mind && M.mind.changeling)
-			M.show_message(rendered, 2)
+
+	visible_message(rendered)
+
+
+
+
+
+
+
 

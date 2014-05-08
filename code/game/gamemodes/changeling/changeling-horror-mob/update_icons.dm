@@ -35,9 +35,6 @@
 			client.screen += r_hand
 		var/t_state = r_hand.item_state
 		if(!t_state)	t_state = r_hand.icon_state
-		overlays -= overlays_standing[CH_R_HAND_LAYER]
-		overlays_standing[CH_R_HAND_LAYER]	= image("icon" = 'icons/mob/items_righthand.dmi', "icon_state" = t_state, "layer" = -CH_R_HAND_LAYER)
-		overlays += overlays_standing[CH_R_HAND_LAYER]
 	else
 		overlays -= overlays_standing[CH_R_HAND_LAYER]
 		overlays_standing[CH_R_HAND_LAYER]	= null
@@ -53,9 +50,6 @@
 			client.screen += l_hand
 		var/t_state = l_hand.item_state
 		if(!t_state)	 t_state = l_hand.icon_state
-		overlays -= overlays_standing[CH_L_HAND_LAYER]
-		overlays_standing[CH_L_HAND_LAYER]	= image("icon" = 'icons/mob/items_lefthand.dmi', "icon_state" = t_state, "layer" = -CH_L_HAND_LAYER)
-		overlays += overlays_standing[CH_L_HAND_LAYER]
 	else
 		overlays -= overlays_standing[CH_L_HAND_LAYER]
 		overlays_standing[CH_L_HAND_LAYER]	= null

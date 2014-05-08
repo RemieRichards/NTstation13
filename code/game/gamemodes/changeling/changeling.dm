@@ -256,11 +256,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	UniqueHorror()
 
 /datum/changeling/proc/UniqueHorror()
-	var/list/prefixHorror = list("Shambling","Crawling","Raging","The")
-	var/list/suffixHorror  = list("Abomination","Horror","Thing") //Yes you can end up as "The Thing" - RR
+	var/list/prefixHorror = list("Shambling","Crawling","Raging","The","Wretched","Rotting")
+	var/list/suffixHorror  = list("Abomination","Horror","Thing","Pile-Of-Flesh") //Yes you can end up as "The Thing" - RR
 
 	if(assimilant)
-		horror_icon = "assimilant_1" //Need more sprites  DEBUG-RR-CHANGELING
+		horror_icon = "assimilant_[rand(1,2)]"
 		//Name stuff is handled in Horrorize() for Assimilants
 	else
 		horror_name = "[pick(prefixHorror)] [pick(suffixHorror)]"
@@ -286,7 +286,6 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		user << "<span class='warning'>DNA of [target] is ruined beyond usability!</span>"
 		return
 	if(ishorror(target))
-		user << "<span class='warning'>This creature is equivelant to us in quality, there is no need.</span>"
 		return
 	if(!ishuman(target))//Absorbing monkeys is entirely possible, but it can cause issues with transforming. That's what lesser form is for anyway!
 		user << "<span class='warning'>We could gain no benefit from absorbing a lesser creature.</span>"
