@@ -122,3 +122,9 @@
 	select_name  = "disable"
 	e_cost = 50
 	fire_sound = "sound/weapons/taser.ogg"
+
+/obj/item/ammo_casing/energy/dominator
+	projectile_type = /obj/item/projectile/energy/dominator
+	e_cost = 0 //Free, due to dominator projectiles having unique drawbacks
+	select_name = "dominator"
+	fire_sound = 'sound/weapons/taser.ogg'

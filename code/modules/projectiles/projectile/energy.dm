@@ -68,5 +68,20 @@
 	if(range <= 0)
 		delete()
 
+/obj/item/projectile/energy/dominator
+	name = "dominator"
+	icon_state = "dominator"
+	nodamage = 1
+	stun = 20
+	weaken = 20
+	stutter = 20
+	hitsound = "sparks"
 
+	on_hit(var/atom/target)
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			if(H.IsCriminal())
+				..()
+			else
+				qdel(src)
 

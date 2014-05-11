@@ -131,3 +131,39 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler)
 	cell_type = "/obj/item/weapon/stock_parts/cell"
+
+
+/obj/item/weapon/gun/energy/dominator
+	name = "dominator"
+	desc = "An intelligent gun that checks the user for security access and Non-Criminality."
+	//icon_state = "dominator"
+	icon_state = "disabler" //DEBUG-REMIE
+	item_state = null
+	ammo_type = list(/obj/item/ammo_casing/energy/dominator)
+	cell_type = "/obj/item/weapon/stock_parts/cell"
+
+
+/obj/item/weapon/gun/energy/dominator/special_check(var/mob/living/carbon/human/H)
+	if(!istype(H) || !H)
+		return 0
+
+	var/combined_key = 0
+
+	if(H.wear_id)
+		if(access_security in H.wear_id.GetAccess())
+			combined_key++
+		else
+			H << "<span class='warning'>ERROR: You do not have Authorization to use this weapon</span>"
+	else
+		H << "<span class='warning'>ERROR:No ID detected, Authorization check failed</span>"
+
+	if(!H.IsCriminal())
+		combined_key++
+	else
+		H << "<span class='warning'>WARNING: You are a Criminal, Please drop this weapon</span>"
+
+	if(combined_key == 2)
+		return 1
+
+	return 0
+

@@ -117,3 +117,22 @@
 
 /mob/living/carbon/human/InCritical()
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
+
+
+/mob/living/carbon/human/proc/IsCriminal()
+	var/criminality = 0
+
+	var/username = get_face_name(get_id_name(""))
+	if(username)
+		var/datum/data/record/R = find_record("name", username, data_core.security)
+		if(R)
+			switch(R.fields["criminal"])
+				if("*Arrest*") //Only these 2 ranks count as "Criminals"
+					criminality++
+				if("Incarcerated")
+					criminality++
+
+	if(criminality)
+		return 1
+
+	return 0

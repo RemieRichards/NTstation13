@@ -1684,6 +1684,16 @@ datum/design/ionrifle
 	build_path = /obj/item/weapon/gun/energy/ionrifle
 	locked = 1
 
+datum/design/dominator
+	name = "Dominator"
+	desc = "An intelligent gun that checks the user for security access and Non-Criminality."
+	id = "dominator"
+	req_tech = list("combat" = 3, "materials" = 3, "magnets" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 5000,"$glass" = 1000)
+	build_path = /obj/item/weapon/gun/energy/dominator
+	locked = 1
+
 datum/design/ammo_9mm
 	name = "Ammunition Box (9mm)"
 	desc = "A box of prototype 9mm ammunition."
