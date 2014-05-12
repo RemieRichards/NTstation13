@@ -77,11 +77,21 @@
 	stutter = 20
 	hitsound = "sparks"
 
-	on_hit(var/atom/target)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			if(H.IsCriminal())
-				..()
-			else
-				qdel(src)
+/obj/item/projectile/energy/dominator/on_hit(var/atom/target)
+	//Obtain held item for checking the gun's malfunction var
+	var/obj/item/firer_held_item = firer.get_active_hand()
+	if(!firer_held_item || !istype(firer_held_item, /obj/item/weapon/gun/energy/dominator))
+		firer_held_item = firer.get_inactive_hand()
+
+	if((firer_held_item) && istype(firer_held_item, /obj/item/weapon/gun/energy/dominator))
+		var/obj/item/weapon/gun/energy/dominator/D = firer_held_item
+		if(D.malfunctioned)
+			return ..()
+
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.IsCriminal())
+			..()
+		else
+			qdel(src)
 

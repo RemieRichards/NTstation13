@@ -136,14 +136,31 @@
 /obj/item/weapon/gun/energy/dominator
 	name = "dominator"
 	desc = "An intelligent gun that checks the user for security access and Non-Criminality."
-	//icon_state = "dominator"
-	icon_state = "disabler" //DEBUG-REMIE
+	icon_state = "dominator"
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/dominator)
 	cell_type = "/obj/item/weapon/stock_parts/cell"
+	var/malfunctioned = 0
+
+
+/obj/item/weapon/gun/energy/dominator/update_icon()
+	return
+
+
+/obj/item/weapon/gun/energy/dominator/attackby(var/obj/item/weapon/W, var/mob/user)
+	if(istype(W, /obj/item/weapon/card/emag))
+		malfunctioned = 1
+		user << "<span class='warning'>ERROR: System Malfunction detected, Please hand this weapon in for maintenance</span>"
+
+	if(istype(W, /obj/item/device/multitool))
+		malfunctioned = !malfunctioned
+		user << "<span class='notice'>You pulse the ID scan system [malfunctioned ? "offline":"back online"]</span>"
 
 
 /obj/item/weapon/gun/energy/dominator/special_check(var/mob/living/carbon/human/H)
+	if(malfunctioned)
+		return 1
+
 	if(!istype(H) || !H)
 		return 0
 
