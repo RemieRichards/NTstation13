@@ -1239,6 +1239,8 @@
 #include "code\modules\telesci\gps.dm"
 #include "code\modules\telesci\telepad.dm"
 #include "code\modules\telesci\telesci_computer.dm"
+#include "code\modules\xenoarchaeology\artifacts_obelisks.dm"
+#include "code\modules\xenoarchaeology\xeno_mobs.dm"
 #include "code\WorkInProgress\buildmode.dm"
 #include "code\WorkInProgress\explosion_particles.dm"
 #include "interface\interface.dm"

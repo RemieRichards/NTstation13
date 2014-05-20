@@ -289,6 +289,18 @@ proc/process_ghost_teleport_locs()
 /area/shuttle/thunderdome
 	name = "honk"
 
+/area/shuttle/xenoarch
+	name = "\improper Xenoarchaelogist Shuttle"
+
+/area/shuttle/xenoarch/station
+	icon_state = "X-shuttle1"
+	destination = /area/shuttle/xenoarch/xenoarea
+
+/area/shuttle/xenoarch/xenoarea
+	icon_state = "X-shuttle2"
+	destination = /area/shuttle/xenoarch/station
+
+
 /area/start            // will be unused once kurper gets his login interface patch done
 	name = "start area"
 	icon_state = "start"
@@ -554,6 +566,17 @@ proc/process_ghost_teleport_locs()
 	..()
 	lighting_use_dynamic = 1
 	InitializeLighting()
+
+/area/xenoarch
+	name = "\improper Asteroid"
+	icon_state = "xenoarch"
+	requires_power = 0
+	has_gravity = 1
+
+/area/xenoarch/xenoarchbase
+	name = "\improper Base camp"
+	icon_state = "xenoarch2"
+	requires_power = 1
 
 /area/planet/clown
 	name = "\improper Clown Planet"

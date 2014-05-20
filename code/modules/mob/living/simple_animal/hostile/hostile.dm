@@ -26,6 +26,7 @@
 	var/stat_attack = 0 //Mobs with stat_attack to 1 will attempt to attack things that are unconscious, Mobs with stat_attack set to 2 will attempt to attack the dead.
 	var/stat_exclusive = 0 //Mobs with this set to 1 will exclusively attack things defined by stat_attack, stat_attack 2 means they will only attack corpses
 	var/list/attack_faction = list() //Put a faction string here to have a mob only ever attack a specific faction
+	var/icon_aggro = null // for swapping to when we get aggressive //Not required, is ignored if not defined
 
 /mob/living/simple_animal/hostile/Life()
 
@@ -136,28 +137,6 @@
 			return 1
 
 	return 0
-	//old commented out code
-	/*if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
-		return 0
-	if(isliving(the_target) && search_objects < 2)
-		var/mob/living/L = the_target
-		var/factsmatch = length(L.factions & src.factions)
-		if(L.stat > stat_attack || L.stat != stat_attack && stat_exclusive == 1)
-			return 0
-		if(factsmatch && !attack_same || !factsmatch && attack_same == 2 || !factsmatch && attack_faction)
-			return 0
-		if(L in friends)
-			return 0
-		return 1
-	if(isobj(the_target))
-		if(the_target.type in wanted_objects)
-			return 1
-		if(istype(the_target, /obj/mecha) && search_objects < 2)
-			var/obj/mecha/M = the_target
-			if(M.occupant)//Just so we don't attack empty mechs
-				if(CanAttack(M.occupant))
-					return 1
-	return 0*/
 
 /mob/living/simple_animal/hostile/proc/GiveTarget(var/new_target)//Step 4, give us our selected target
 	target = new_target
@@ -233,10 +212,13 @@
 
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
+	if(icon_aggro)
+		icon_state = icon_aggro
 
 /mob/living/simple_animal/hostile/proc/LoseAggro()
 	stop_automated_movement = 0
 	vision_range = idle_vision_range
+	icon_state = icon_living
 
 /mob/living/simple_animal/hostile/proc/LoseTarget()
 	stance = HOSTILE_STANCE_IDLE
