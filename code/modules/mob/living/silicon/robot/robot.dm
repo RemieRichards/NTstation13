@@ -125,6 +125,9 @@
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
 		mind.transfer_to(mmi.brainmob)
+		if(istype(mmi,/obj/item/device/mmi/posibrain))
+			var/obj/item/device/mmi/posibrain/P = mmi
+			P.handle_posibrain_icon()
 		mmi = null
 	..()
 

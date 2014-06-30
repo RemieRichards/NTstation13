@@ -169,9 +169,7 @@ datum/hud/New(mob/owner)
 
 
 /datum/hud/proc/instantiate()
-	if(!ismob(mymob))
-		return 0
-	if(!mymob.client)
+	if(!ismob(mymob) || !mymob.client || !mymob.client.screen)
 		return 0
 
 	var/ui_style = ui_style2icon(mymob.client.prefs.UI_style)
@@ -200,10 +198,9 @@ datum/hud/New(mob/owner)
 
 //Version denotes which style should be displayed. blank or 0 means "next version"
 /datum/hud/proc/show_hud(var/version = 0)
-	if(!ismob(mymob))
+	if(!ismob(mymob) || !mymob.client || !mymob.client.screen)
 		return 0
-	if(!mymob.client)
-		return 0
+
 	var/display_hud_version = version
 	if(!display_hud_version)	//If 0 or blank, display the next hud version
 		display_hud_version = hud_version + 1
@@ -220,18 +217,30 @@ datum/hud/New(mob/owner)
 			if(hotkeybuttons && !hotkey_ui_hidden)
 				mymob.client.screen += hotkeybuttons
 
-			action_intent.screen_loc = ui_acti //Restore intent selection to the original position
-			mymob.client.screen += mymob.zone_sel				//This one is a special snowflake
-			mymob.client.screen += mymob.bodytemp				//As are the rest of these...
-			mymob.client.screen += mymob.fire
-			mymob.client.screen += mymob.healths
-			mymob.client.screen += mymob.internals
-			mymob.client.screen += mymob.nutrition_icon
-			mymob.client.screen += mymob.oxygen
-			mymob.client.screen += mymob.pressure
-			mymob.client.screen += mymob.toxin
-			mymob.client.screen += lingstingdisplay
-			mymob.client.screen += lingchemdisplay
+			if(action_intent)
+				action_intent.screen_loc = ui_acti //Restore intent selection to the original position
+			if(mymob.zone_sel)
+				mymob.client.screen += mymob.zone_sel				//This one is a special snowflake
+			if(mymob.bodytemp)
+				mymob.client.screen += mymob.bodytemp				//As are the rest of these...
+			if(mymob.fire)
+				mymob.client.screen += mymob.fire
+			if(mymob.healths)
+				mymob.client.screen += mymob.healths
+			if(mymob.internals)
+				mymob.client.screen += mymob.internals
+			if(mymob.nutrition_icon)
+				mymob.client.screen += mymob.nutrition_icon
+			if(mymob.oxygen)
+				mymob.client.screen += mymob.oxygen
+			if(mymob.pressure)
+				mymob.client.screen += mymob.pressure
+			if(mymob.toxin)
+				mymob.client.screen += mymob.toxin
+			if(lingstingdisplay)
+				mymob.client.screen += lingstingdisplay
+			if(lingchemdisplay)
+				mymob.client.screen += lingchemdisplay
 
 			hidden_inventory_update()
 			persistant_inventory_update()
@@ -248,15 +257,22 @@ datum/hud/New(mob/owner)
 				mymob.client.screen -= item_action_list
 
 			//These ones are not a part of 'adding', 'other' or 'hotkeybuttons' but we want them gone.
-			mymob.client.screen -= mymob.zone_sel	//zone_sel is a mob variable for some reason.
-			mymob.client.screen -= lingstingdisplay
-			mymob.client.screen -= lingchemdisplay
+			if(mymob.zone_sel)
+				mymob.client.screen -= mymob.zone_sel	//zone_sel is a mob variable for some reason.
+			if(lingstingdisplay)
+				mymob.client.screen -= lingstingdisplay
+			if(lingchemdisplay)
+				mymob.client.screen -= lingchemdisplay
 
 			//These ones are a part of 'adding', 'other' or 'hotkeybuttons' but we want them to stay
-			mymob.client.screen += l_hand_hud_object	//we want the hands to be visible
-			mymob.client.screen += r_hand_hud_object	//we want the hands to be visible
-			mymob.client.screen += action_intent		//we want the intent swticher visible
-			action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
+			if(l_hand_hud_object)
+				mymob.client.screen += l_hand_hud_object	//we want the hands to be visible
+			if(r_hand_hud_object)
+				mymob.client.screen += r_hand_hud_object	//we want the hands to be visible
+			if(action_intent)
+				mymob.client.screen += action_intent		//we want the intent swticher visible
+				if(ui_acti_alt)
+					action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
 
 			hidden_inventory_update()
 			persistant_inventory_update()
@@ -273,17 +289,28 @@ datum/hud/New(mob/owner)
 				mymob.client.screen -= item_action_list
 
 			//These ones are not a part of 'adding', 'other' or 'hotkeybuttons' but we want them gone.
-			mymob.client.screen -= mymob.zone_sel	//zone_sel is a mob variable for some reason.
-			mymob.client.screen -= mymob.bodytemp
-			mymob.client.screen -= mymob.fire
-			mymob.client.screen -= mymob.healths
-			mymob.client.screen -= mymob.internals
-			mymob.client.screen -= mymob.nutrition_icon
-			mymob.client.screen -= mymob.oxygen
-			mymob.client.screen -= mymob.pressure
-			mymob.client.screen -= mymob.toxin
-			mymob.client.screen -= lingstingdisplay
-			mymob.client.screen -= lingchemdisplay
+			if(mymob.zone_sel)
+				mymob.client.screen -= mymob.zone_sel	//zone_sel is a mob variable for some reason.
+			if(mymob.bodytemp)
+				mymob.client.screen -= mymob.bodytemp
+			if(mymob.fire)
+				mymob.client.screen -= mymob.fire
+			if(mymob.healths)
+				mymob.client.screen -= mymob.healths
+			if(mymob.internals)
+				mymob.client.screen -= mymob.internals
+			if(mymob.nutrition_icon)
+				mymob.client.screen -= mymob.nutrition_icon
+			if(mymob.oxygen)
+				mymob.client.screen -= mymob.oxygen
+			if(mymob.pressure)
+				mymob.client.screen -= mymob.pressure
+			if(mymob.toxin)
+				mymob.client.screen -= mymob.toxin
+			if(lingstingdisplay)
+				mymob.client.screen -= lingstingdisplay
+			if(lingchemdisplay)
+				mymob.client.screen -= lingchemdisplay
 
 			hidden_inventory_update()
 			persistant_inventory_update()

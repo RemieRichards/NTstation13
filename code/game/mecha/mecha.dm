@@ -653,9 +653,9 @@
 
 	if(istype(W, /obj/item/device/mmi))
 		if(mmi_move_inside(W,user))
-			user << "[src]-MMI interface initialized successfuly"
+			user << "[src]-[W] interface initialized successfuly"
 		else
-			user << "[src]-MMI interface initialization failed."
+			user << "[src]-[W] interface initialization failed."
 		return
 
 	if(istype(W, /obj/item/mecha_parts/mecha_equipment))
@@ -1154,6 +1154,9 @@
 			if(mmi.brainmob)
 				occupant.loc = mmi
 			mmi.mecha = null
+			if(istype(mmi,/obj/item/device/mmi/posibrain))
+				var/obj/item/device/mmi/posibrain/P = mmi
+				P.handle_posibrain_icon()
 			src.occupant.canmove = 0
 			src.verbs += /obj/mecha/verb/eject
 		src.occupant = null
