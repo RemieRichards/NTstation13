@@ -4,7 +4,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
 	w_class = 3
-	origin_tech = "engineering=2;biotech=3;programming=3"
+	origin_tech = "biotech=3;programming=2"
 
 	construction_cost = list("metal" = 700, "glass" = 350)
 	construction_time = 75
