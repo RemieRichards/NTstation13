@@ -6,7 +6,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
 	w_class = 3
-	origin_tech = "biotech=3;programming=2"
+	origin_tech = "biotech=3"
 
 	var/list/construction_cost = list("metal" = 1000, "glass" = 500)
 	var/construction_time = 75
