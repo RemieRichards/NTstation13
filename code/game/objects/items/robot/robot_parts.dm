@@ -225,8 +225,9 @@
 
 			M.brainmob.mind.transfer_to(O)
 
-			if(O.mind && O.mind.special_role)
-				O.mind.remove_all_antag()
+			if(O.mind)
+				if(O.mind.special_role)
+					O.mind.remove_all_antag()
 				if(!config.borg_remembers)
 					O.mind.store_memory("All Objectives listed here are considered Failed.")
 				else
@@ -238,8 +239,9 @@
 			O.cell = chest.cell
 			chest.cell.loc = O
 			chest.cell = null
-			W.loc = O//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
-			O.mmi = W
+			M.loc = O//Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
+			O.mmi = M
+			O.updatename()
 
 			feedback_inc("cyborg_birth",1)
 

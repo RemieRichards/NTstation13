@@ -58,6 +58,8 @@
 	var/obj/item/weapon/tank/internal = null	//Hatred. Used if a borg has a jetpack.
 	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 
+	var/braintype = "Cyborg"
+
 
 
 /mob/living/silicon/robot/New(loc)
@@ -99,18 +101,19 @@
 			camera.status = 0
 	..()
 
-	//MMI stuff. Held togheter by magic. ~Miauw
-	mmi = new(src)
-	mmi.brain = new /obj/item/organ/brain(mmi)
-	mmi.brain.name = "[src.real_name]'s brain"
-	mmi.locked = 1
-	mmi.icon_state = "mmi_full"
-	mmi.name = "Man-Machine Interface: [src.real_name]"
-	mmi.brainmob = new(src)
-	mmi.brainmob.name = src.real_name
-	mmi.brainmob.real_name = src.real_name
-	mmi.brainmob.container = mmi
-	mmi.contents += mmi.brainmob
+	//MMI stuff. Held together by magic. ~Miauw
+	if(!mmi || !mmi.brainmob)
+		mmi = new(src)
+		mmi.brain = new /obj/item/organ/brain(mmi)
+		mmi.brain.name = "[real_name]'s brain"
+		mmi.locked = 1
+		mmi.icon_state = "mmi_full"
+		mmi.name = "Man-Machine Interface: [real_name]"
+		mmi.brainmob = new(src)
+		mmi.brainmob.name = real_name
+		mmi.brainmob.real_name = real_name
+		mmi.brainmob.container = mmi
+		mmi.contents += mmi.brainmob
 
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
@@ -229,10 +232,16 @@
 /mob/living/silicon/robot/proc/updatename()
 
 	var/changed_name = ""
+
 	if(custom_name)
 		changed_name = custom_name
 	else
-		changed_name = "[(designation ? "[designation] " : "")]Cyborg-[num2text(ident)]"
+		if(istype(mmi, /obj/item/device/mmi/posibrain))
+			braintype = "Android"
+		else
+			braintype = "Cyborg"
+
+		changed_name = "[(designation ? "[designation] " : "")][braintype]-[num2text(ident)]"
 	real_name = changed_name
 	name = real_name
 	if(camera)

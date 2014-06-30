@@ -1519,6 +1519,17 @@ datum/design/mmi_radio
 	build_path = /obj/item/device/mmi/radio_enabled
 	category = "Misc"
 
+datum/design/posibrain
+	name = "Positronic Brain"
+	desc = "The latest in Artificial Intelligences."
+	id = "mmi_posi"
+	req_tech = list("programming" = 2, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list("$metal" = 700, "$glass" = 350)
+	reliability = 74
+	build_path = /obj/item/device/mmi/posibrain
+	category = "Misc"
+
 datum/design/synthetic_flash
 	name = "Synthetic Flash"
 	desc = "When a problem arises, SCIENCE is the solution."

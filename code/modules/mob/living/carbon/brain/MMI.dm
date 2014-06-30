@@ -6,9 +6,9 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "mmi_empty"
 	w_class = 3
-	origin_tech = "biotech=3"
+	origin_tech = "biotech=3;programming=2"
 
-	var/list/construction_cost = list("metal"=1000,"glass"=500)
+	var/list/construction_cost = list("metal" = 1000, "glass" = 500)
 	var/construction_time = 75
 	//these vars are so the mecha fabricator doesn't shit itself anymore. --NEO
 
