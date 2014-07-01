@@ -652,6 +652,9 @@
 /obj/mecha/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if(istype(W, /obj/item/device/mmi))
+		if(istype(src, /obj/mecha/combat)) //Temp fix, Combat mechs cause LOTS of visual errors on MMI/Posibrains - Remie
+			user << "<span class='warning'>Does that sound like a smart idea to you?</span>"
+			return
 		if(mmi_move_inside(W,user))
 			user << "[src]-[W] interface initialized successfuly"
 		else
