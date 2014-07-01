@@ -57,6 +57,13 @@
 		brainmob.mind.assigned_role = "Positronic Brain"
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
+		
+	if(!config.borg_remembers)
+		brainmob.mind.store_memory("All Objectives listed here are considered Failed.")
+	else
+		brainmob.mind.remove_all_antag()
+		brainmob.mind.wipe_memory()
+		
 	brainmob << "<span class='notice'>Hello World!</span>"
 	handle_posibrain_icon()
 	return
@@ -67,7 +74,13 @@
 	brainmob.mind = candidate.mind
 	brainmob.ckey = candidate.ckey
 	name = "positronic brain ([brainmob.name])"
-
+	
+	if(!config.borg_remembers)
+		brainmob.mind.store_memory("All Objectives listed here are considered Failed.")
+	else
+		brainmob.mind.remove_all_antag()
+		brainmob.mind.wipe_memory()
+		
 	brainmob << "<b>You are a positronic brain, brought into existence on [station_name()].</b>"
 	brainmob << "<b>As a synthetic intelligence, you answer to all crewmembers, as well as the AI.</b>"
 	brainmob << "<b>Remember, the purpose of your existence is to serve the crew and the station. Above all else, do no harm.</b>"
