@@ -293,7 +293,7 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Xenoarchaelogist Shuttle"
 
 /area/shuttle/xenoarch/station
-	icon_state = "X-shuttle1"
+	icon_state = "X-shuttle"
 	destination = /area/shuttle/xenoarch/xenoarea
 
 /area/shuttle/xenoarch/xenoarea
@@ -568,7 +568,7 @@ proc/process_ghost_teleport_locs()
 	InitializeLighting()
 
 /area/xenoarch
-	name = "\improper Asteroid"
+	name = "\improper Desert Moon"
 	icon_state = "xenoarch"
 	requires_power = 0
 	has_gravity = 1
@@ -576,7 +576,7 @@ proc/process_ghost_teleport_locs()
 /area/xenoarch/xenoarchbase
 	name = "\improper Base camp"
 	icon_state = "xenoarch2"
-	requires_power = 1
+	requires_power = 0
 
 /area/planet/clown
 	name = "\improper Clown Planet"

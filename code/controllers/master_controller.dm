@@ -101,6 +101,21 @@ datum/controller/game_controller/proc/setup_objects()
 	for(var/turf/simulated/floor/F in world)
 		F.MakeDirty()
 
+	world << "\red \b Discovering Desert Moon..."
+	sleep(-1)
+
+	for(var/turf/T in xenoarch_digspots)
+		if(!T.density)
+			if(prob(2))
+				new /obj/structure/digspot (T)
+				continue
+			if(prob(2))
+				new /obj/effect/cactus/lower (T)
+				continue
+			if(prob(2))
+				new /obj/effect/shrub (T)
+				continue
+
 	world << "\red \b Initializations complete."
 	sleep(-1)
 

@@ -1961,6 +1961,13 @@
 				if(istype(s)) s.move_shuttle(0,1)
 				message_admins("[key_name_admin(usr)] moved the centcom ferry", 1)
 				log_admin("[key_name(usr)] moved the centcom ferry")
+			if("movexenoshuttle")
+				feedback_inc("admin_secrets_fun_used",1)
+				feedback_add_details("admin_secrets_fun_used","ShX")
+				var/datum/shuttle_manager/s = shuttles["xenoarch"]
+				if(istype(s)) s.move_shuttle(0,1)
+				message_admins("[key_name_admin(usr)] moved the xenoarch shuttle", 1)
+				log_admin("[key_name(usr)] moved the xenoarch shuttle")
 			if("kick_all_from_lobby")
 				if(ticker && ticker.current_state == GAME_STATE_PLAYING)
 					var/afkonly = text2num(href_list["afkonly"])

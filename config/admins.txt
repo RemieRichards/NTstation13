@@ -57,3 +57,4 @@ wjohnston = AdminObserver
 
 miggles = CodebaseManager
 dannno = CodebaseManager
+crimsonvision = CodebaseManager

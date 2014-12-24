@@ -593,7 +593,6 @@
 
 /turf/proc/updateMineralOverlays()
 	src.overlays.Cut()
-
 	if(istype(get_step(src, NORTH), /turf/simulated/mineral))
 		src.overlays += image('icons/turf/walls.dmi', "rock_side_n")
 	if(istype(get_step(src, SOUTH), /turf/simulated/mineral))

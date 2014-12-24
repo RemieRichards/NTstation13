@@ -41,7 +41,7 @@
 	return
 
 
-// Ported from unstable r355
+#define MAX_Z 6 //used in below proc,
 
 /turf/space/Entered(atom/movable/A as mob|obj)
 	if(movement_disabled)
@@ -54,9 +54,8 @@
 
 	if(ticker && ticker.mode)
 
-		// Okay, so let's make it so that people can travel z levels but not nuke disks!
-		// if(ticker.mode.name == "nuclear emergency")	return
-		if(A.z > 6) return
+		if(A.z > MAX_Z) return //for "Unenterable" z levels, they have their own entrance/exit code, eg: Away missions
+
 		if (A.x <= TRANSITIONEDGE || A.x >= (world.maxx - TRANSITIONEDGE - 1) || A.y <= TRANSITIONEDGE || A.y >= (world.maxy - TRANSITIONEDGE - 1))
 			if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
 				qdel(A)
